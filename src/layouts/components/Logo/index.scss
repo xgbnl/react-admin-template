@@ -1,0 +1,23 @@
+.logo-wrap {
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    img {
+        width: 20%;
+        height: 60%;
+    }
+
+    h1 {
+        color: white;
+        font-weight: bold;
+        line-height: 50px;
+        margin: unset;
+    }
+}
+
+.collapsedLogo {
+    width: 65% !important;
+    height: 65% !important;
+}
