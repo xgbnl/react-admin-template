@@ -1,20 +1,22 @@
 import CustomLayout from "./layouts/components/Layout";
 import { settings } from '@utils/settings';
-import { defaultRoutes } from "./route";
-import { useEffect } from "react";
+import { defaultRoutes } from "./route/routes";
+import { useEffect, useState } from "react";
+import {transformerMenuData} from '@utils/filterMenu';
 
 const App = () => {
 
+  const [menus,setMenus] = useState([]);
+
   useEffect(() => {
 
-    console.log(defaultRoutes);
-
-  });
+    setMenus(transformerMenuData(defaultRoutes));
+  },[]);
 
   return (
     <CustomLayout logo={settings.logo}
       title={settings.title}
-      items={items}
+      items={menus}
       theme={settings.siderBarTheme}
       footer={settings.footer}
       avatar={settings.avatarApi}

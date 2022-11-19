@@ -1,8 +1,7 @@
-import {lazy,Suspense} from "react";
+import {Suspense} from "react";
 import {Spin} from 'antd';
 
-const lazyLoad = (moduleName) => {
-    const Module = lazy(() => import(moduleName));
+const load = (Module) => {
 
     return (
         <Suspense fallback={<Spin tip="Loading..." />}>
@@ -11,4 +10,4 @@ const lazyLoad = (moduleName) => {
     )
 }
 
-export default lazyLoad;
+export default load;
