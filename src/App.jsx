@@ -1,6 +1,6 @@
 import CustomLayout from "./layouts/components/Layout";
 import { settings } from '@utils/settings';
-import { defaultRoutes } from "./route/routes";
+import { defaultRoutes } from "@/route";
 import { useEffect, useState } from "react";
 import {transformerMenuData} from '@utils/filterMenu';
 
