@@ -72,8 +72,8 @@ const SideBar = () => {
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={onCollapse} >
             <Logo collapsed={collapsed} logo={settings.logo} title={settings.title} />
-            <Menu items={items}
-                theme={theme}
+            <Menu items={menuItems}
+                theme={settings.siderBarTheme}
                 openKeys={openKeys}
                 selectedKeys={selectedKeys}
                 onClick={handleMenuClick}
