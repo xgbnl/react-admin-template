@@ -1,27 +1,26 @@
-import CustomLayout from "./layouts/components/Layout";
-import { settings } from '@utils/settings';
-import { defaultRoutes } from "@/route";
-import { useEffect, useState } from "react";
-import {transformerMenuData} from '@utils/filterMenu';
+import defaultRoutes from "@/route/index.jsx";
+import {useState,useEffect} from "react";
+import {useRoutes} from "react-router-dom";
+import { deepinCopy } from "./utils/deepinCopy";
+import { handelFilterElement,handelEnd } from "./utils/effect";
+import menus from "./mock/menus";
 
 const App = () => {
+    const [routes,setRoutes] = useState(defaultRoutes);
 
-  const [menus,setMenus] = useState([]);
+    const element = useRoutes(routes)
 
-  useEffect(() => {
+    useEffect(() => {
 
-    setMenus(transformerMenuData(defaultRoutes));
-  },[]);
+        const end = handelEnd(handelFilterElement(deepinCopy()))
+        setRoutes(end);
+    });
 
-  return (
-    <CustomLayout logo={settings.logo}
-      title={settings.title}
-      items={menus}
-      theme={settings.siderBarTheme}
-      footer={settings.footer}
-      avatar={settings.avatarApi}
-    />
-  )
+    return (
+        <div className="app">
+            {element}
+        </div>
+    );
 }
 
 export default App;

@@ -12,13 +12,13 @@ const menuTemplate = ({ key, label, children, icon }) => {
     };
 }
 
-const transformerMenuData = (menus) => {
+const filterMenus = (menus) => {
 
     return menus.map((menu, index) => {
-        return menu.children
-            ? transformerMenuData(menu.children)
+        return menu.children && menu.children.length > 0
+            ? filterMenus(menu.children)
             : menuTemplate({
-                key: menu.children ? `sub${menu.id}` : menu.id,
+                key: menu.children ? `sub${index}` : menu.id,
                 label: menu.meta.title,
                 icon: createElement(Icons[menu.meta.icon ?? DEFAULT]),
                 children: menu.children ?? null,
@@ -26,4 +26,4 @@ const transformerMenuData = (menus) => {
     });
 }
 
-export { transformerMenuData };
+export { filterMenus as transformerMenuData };

@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import router from '@/route';
-import {getToken, setToken} from '@utils/auth'
+import {getToken, setToken} from './auth'
 // import {useUserStore} from '@/store/user'
 
 let reqConfig
@@ -88,7 +88,7 @@ service.interceptors.response.use(
     }
   },
   (err) => {
-    /*http错误处理，处理跨域，404，401，500*/
+    /*http错误处理，处理跨域，not-found，401，500*/
     if (loadingE) loadingE.close()
     ElMessage({
       message: err,

@@ -1,10 +1,11 @@
+const TOKEN = 'access_token'
 
-const getToken = (key) => {
-    localStorage.getItem(key);
+const getToken = () => {
+   return localStorage.getItem(TOKEN);
 }
 
-const setToken = (key,value) => {
-    localStorage.setItem(key,value);
+const setToken = (value) => {
+    localStorage.setItem(TOKEN,value);
 }
 
 export {

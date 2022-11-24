@@ -1,3 +1,3 @@
-import Layout from "./components/Layout";
+import component from "./components/Layout";
 
-export {Layout};
+export default component;
