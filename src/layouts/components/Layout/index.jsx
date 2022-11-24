@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Layout } from "antd";
 import SideBar from "../Sider";
 import CustomHeader from '../Header';
@@ -7,25 +6,16 @@ import CustomContent from '../Content';
 import { Outlet } from 'react-router-dom';
 import './index.scss';
 
-const CustomLayout = ({ logo, title, theme, items,footer ,avatar}) => {
-
-    const [collapsed, setCollapsed] = useState(false);
-
+const CustomLayout = () => {
     return (
         <Layout>
-            <SideBar collapsed={collapsed}
-                setCollapsed={setCollapsed}
-                items={items}
-                logo={logo}
-                title={title}
-                theme={theme}
-            />
+            <SideBar />
             <Layout>
-                <CustomHeader avatar={avatar} />
+                <CustomHeader />
                 <CustomContent>
                     <Outlet />
                 </CustomContent>
-                <CustomFooter content={footer} />
+                <CustomFooter />
             </Layout>
         </Layout>
     );
