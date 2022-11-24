@@ -36,13 +36,19 @@ const treeRouteFilter = ({routeHash,permissionRoutes,lv=0}) =>{
 
 export const filterRouter = ({permissionRoutes,routes}) => {
 
-    const routeHash = (() => {
+    const createRouteHash = (() => {
         const hash = {};
         
         routes.forEach(route => {hash[route] = true});
 
+        console.log('----hash');
+
+        console.log(hash);
+
         return hash;
-    })();
+    });
+
+    const routeHash = createRouteHash();
 
     return treeRouteFilter({routeHash,permissionRoutes});
 }

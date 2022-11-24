@@ -45,7 +45,7 @@ export const anyRoute = [
 export const permissionRoutes = [
     {
         path: '/home',
-        name: 'home',
+        name: 'Home',
         element: <CustomLayout/>,
         children:[
             {
