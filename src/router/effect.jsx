@@ -1,3 +1,18 @@
+import {Suspense} from "react";
+import Loading from "@components/loading/index.jsx";
+
+/**
+ * 动态加载
+ * @param Component
+ * @returns {JSX.Element}
+ */
+export const load = (Component) => {
+    return (
+        <Suspense fallback={<Loading/>}>
+            <Component/>
+        </Suspense>
+    );
+}
 
 /**
  * 递归处理路由

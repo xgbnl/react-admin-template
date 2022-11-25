@@ -1,7 +1,7 @@
 import {Navigate} from "react-router-dom";
 import CustomLayout from "@/layouts/components/Layout";
 import {lazy} from "react";
-
+import {load} from "@/router/effect.jsx";
 
 const Login = lazy(() => import('@pages/login'))
 const NotFound = lazy(() => import('@pages/not-found'))
@@ -17,13 +17,13 @@ export const constantRoutes = [
     },
     {
         path: '/login',
-        element: <Login/>,
+        element: load(Login),
         name: 'login',
     },
     {
         path: '/404',
         name: 'NotFound',
-        element: <NotFound/>,
+        element: load(NotFound),
     },
     {
         path: '/',
@@ -59,7 +59,7 @@ export const permissionRoutes = [
             {
                 path: '/dashboard',
                 name: 'Dashboard',
-                element: <Dashboard/>,
+                element: load(Dashboard),
                 meta: {title: '仪表盘', icon: 'DashboardOutlined'},
             },
             {
@@ -71,13 +71,13 @@ export const permissionRoutes = [
                         path: 'role',
                         name: 'Role',
                         meta: {title: '角色管理', icon: 'UserAddOutlined'},
-                        element: <Role/>,
+                        element: load(Role),
                     },
                     {
                         path: 'menu',
                         name: 'Menu',
                         meta: {title: '菜单管理', icon: 'MenuOutlined'},
-                        element: <Menu/>,
+                        element: load(Menu),
                     }
                 ],
             }

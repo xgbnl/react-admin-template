@@ -6,28 +6,8 @@
     height: 100vh;
 }
 
-.title,
-.spin,
-.design {
+.spin{
     width: inherit;
-}
-
-.title {
-    h1 {
-        font-size: 100px;
-        text-align: center;
-    }
-}
-
-.design {
-    text-align: center;
-    color: #333;
-
-    img {
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
-    }
 }
 
 .ant-spin-dot {
