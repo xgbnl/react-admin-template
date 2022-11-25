@@ -1,5 +1,5 @@
 import { useRoutes } from "react-router-dom";
-import { deepinCopy } from "@/utils/deepinCopy";
+import {cloneDeep} from "lodash/lang.js";
 
 import { permissionRoutes,anyRoute,constantRoutes } from "./routes";
 import { filterRouter } from "./effect";
@@ -13,22 +13,22 @@ const routes = [
     'Menu',
 ];
 
-const allRoutes = deepinCopy(permissionRoutes);
+const allRoutes = cloneDeep(permissionRoutes);
 
 // 注册路由
-export const useAppRoutes = () => {
+export const AppRoutes = () => {
 
     const resultRouter = routes.length ? filterRouter({
         permissionRoutes:allRoutes,
         routes,
     }): constantRoutes;
 
-    return useRoutes([...resultRouter,...allRoutes]);
+    return useRoutes([...resultRouter,...anyRoute]);
 }
 
 // 找到要渲染成左侧菜单的路由
 export const findSideBarRoutes = () => {
-    const currentIndex = allRoutes.findIndex(route => route.path === '/home');
+    const currentIndex = allRoutes.findIndex(route => route.path === '/');
 
     return allRoutes[currentIndex].children;
 }
