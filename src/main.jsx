@@ -11,7 +11,7 @@ import {store,persistor} from "@/store/store.js";
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-    <StrictMode>
+    // <StrictMode>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <BrowserRouter>
@@ -21,5 +21,5 @@ root.render(
                 </BrowserRouter>
             </PersistGate>
         </Provider>
-    </StrictMode>
+    // </StrictMode>
 )
