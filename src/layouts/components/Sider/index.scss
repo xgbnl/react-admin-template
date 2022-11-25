@@ -10,13 +10,15 @@
   width: 48px !important;
 }
 
-.ant-menu-submenu-title {
-  padding-left: 24px !important;
+.ant-menu-root {
+  .ant-menu-item,.ant-menu-submenu-title {
+    padding-left: 20px !important;
+  }
 }
 
-.ant-menu-root {
-  .ant-menu-item {
-    padding-left: 24px !important;
+.ant-menu-inline-collapsed {
+  .ant-menu-item,.ant-menu-submenu-title {
+    padding-left: 12px !important;
   }
 }
 
