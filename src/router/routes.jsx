@@ -45,7 +45,7 @@ export const constantRoutes = [
 export const anyRoute = [
     {
         path: '*',
-        element: <Navigate to="/404"/>
+        element: load(NotFound)
     }
 ];
 
