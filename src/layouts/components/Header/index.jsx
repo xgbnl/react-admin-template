@@ -1,9 +1,9 @@
-import { Layout } from "antd";
+import {Layout} from "antd";
 import CustomAvatar from "../Avatar";
 import './index.scss';
 import settings from "@/settings";
 
-const { Header } = Layout;
+const {Header} = Layout;
 
 const CustomHeader = () => {
     return (

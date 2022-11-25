@@ -1,5 +1,8 @@
 .ant-layout-header {
-    height: 50px !important;
+    height: 48px !important;
+    padding-inline: 5px !important;
+    background: white !important;
+    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
 }
 
 .avatar-wrap {
@@ -7,4 +10,5 @@
     justify-content: end;
     height: inherit;
     align-items: center;
+    margin-right: 60px;
 }

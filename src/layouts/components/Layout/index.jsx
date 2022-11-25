@@ -4,11 +4,10 @@ import CustomHeader from '../Header';
 import CustomFooter from '../Footer';
 import CustomContent from '../Content';
 import { Outlet } from 'react-router-dom';
-import './index.scss';
 
 const CustomLayout = () => {
     return (
-        <Layout>
+        <Layout style={{height: '100vh'}}>
             <SideBar />
             <Layout>
                 <CustomHeader />
