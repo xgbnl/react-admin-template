@@ -10,4 +10,19 @@
   width: 48px !important;
 }
 
+.ant-menu-submenu-title {
+  padding-left: 24px !important;
+}
+
+.ant-menu-root {
+  .ant-menu-item {
+    padding-left: 24px !important;
+  }
+}
+
+.ant-menu-sub {
+  .ant-menu-item {
+    padding-left: 40px !important;
+  }
+}
 
