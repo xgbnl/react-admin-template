@@ -1,37 +1,46 @@
-import { useRoutes } from "react-router-dom";
-import {cloneDeep} from "lodash/lang.js";
+import {Navigate} from "react-router-dom";
+import CustomLayout from "@/layouts/components/Layout";
+import {lazy} from "react";
+import {load} from "@/router/module/effect.jsx";
 
-import { permissionRoutes,anyRoute,constantRoutes } from "./routes";
-import { filterRouter } from "./effect";
+const Login = lazy(() => import('@pages/login'));
+const NotFound = lazy(() => import('@pages/not-found'));
+const Dashboard = lazy(() => import('@pages/dashboard'));
+const Access = lazy(() => import('@pages/access'));
 
-// 模拟routes，后期替换为redux
-
-const routes = [
-    'Dashboard',
-    'Permission',
-    'Role',
-    'Menu',
+// 404 、*路由
+export const anyRoute = [
+    {
+        path: '*',
+        element: load(NotFound)
+    }
 ];
 
-const allRoutes = cloneDeep(permissionRoutes);
-
-// 注册路由
-export const AppRoutes = () => {
-
-    const resultRouter = routes.length ? filterRouter({
-        permissionRoutes:allRoutes,
-        routes,
-    }): constantRoutes;
-
-    return useRoutes([...resultRouter,...anyRoute]);
-}
-
-// 找到要渲染成左侧菜单的路由
-export const findSideBarRoutes = () => {
-    const currentIndex = allRoutes.findIndex(route => route.path === '/');
-
-    return allRoutes[currentIndex].children;
-}
-
-export default permissionRoutes;
-
+// 基础路由
+export const constantRoutes = [
+    {
+        path: '/',
+        name: 'Home',
+        element: <CustomLayout/>,
+        children: [
+            {
+                path: 'dashboard',
+                name: 'Dashboard',
+                element: load(Dashboard),
+                meta: {title: '仪表盘', icon: 'DashboardOutlined'},
+            },
+            {
+                path: '*',
+                name: 'Access',
+                hidden: true,
+                element: load(Access),
+            }
+        ],
+    },
+    {
+        path: '/login',
+        element: load(Login),
+        name: 'login',
+    },
+    ...anyRoute,
+];

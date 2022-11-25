@@ -17,12 +17,12 @@ export const load = (Component) => {
 /**
  * 递归处理路由
  */
-const treeRouteFilter = ({routeHash, permissionRoutes, lv = 0}) => {
-    return permissionRoutes.filter(router => {
+const treeRouteFilter = ({routeHash, asyncRoutes, lv = 0}) => {
+    return asyncRoutes.filter(router => {
         const {children = []} = router;
         router.children = treeRouteFilter({
             routeHash,
-            permissionRoutes: children,
+            asyncRoutes: children,
             lv: lv + 1
         });
         return (lv === 0) || routeHash[router.name];
@@ -30,12 +30,12 @@ const treeRouteFilter = ({routeHash, permissionRoutes, lv = 0}) => {
 }
 
 // hash路由
-export const filterRouter = ({permissionRoutes, routes}) => {
+export const filterRouter = ({asyncRoutes, permissionRoutes}) => {
 
     const createRouteHash = (() => {
         const hash = {};
 
-        routes.forEach(route => {
+        permissionRoutes.forEach(route => {
             hash[route] = true
         });
 
@@ -44,5 +44,5 @@ export const filterRouter = ({permissionRoutes, routes}) => {
 
     const routeHash = createRouteHash();
 
-    return treeRouteFilter({routeHash, permissionRoutes});
+    return treeRouteFilter({routeHash, asyncRoutes});
 }

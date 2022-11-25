@@ -1,7 +1,7 @@
-import { AppRoutes } from "./router";
+import {useAppRoutes} from "@/router/module/permission.jsx";
 
 const App = () => {
-    return <AppRoutes/>;
+    return useAppRoutes();
 }
 
 export default App;
