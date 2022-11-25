@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {findSideBarRoutes} from "@/router";
 import * as Icons from '@ant-design/icons';
-import {createElement, useRef} from 'react';
+import {createElement} from 'react';
 import settings from "@/settings";
 import Trigger from "@/layouts/components/Trigger/index.jsx";
 import Logo from "@/layouts/components/Logo/index.jsx";
@@ -21,15 +21,15 @@ const getItem = (key, label, icon, children = null, type = '') => {
     };
 }
 
-// 处理路由path为菜单key
-const substr = (path, parentPath = null) => {
+// 拼接路径
+const pathJoin = (path, parentPath = null) => {
     if (path.indexOf('/') !== 0) {
         path = `/${path}`
     }
     return parentPath ? parentPath + path : path;
 }
 
-const getIcon = (icon) => {
+const makeIcon = (icon) => {
     return createElement(Icons[icon ? icon : 'AntDesignOutlined']);
 }
 
@@ -62,14 +62,14 @@ const SideBar = () => {
 
     const menus = routes.map(route => {
         return getItem(
-            substr(route.path),
+            pathJoin(route.path),
             route.meta?.title,
-            getIcon(route.meta?.icon),
+            makeIcon(route.meta?.icon),
             (route.children && route.children.length)
                 ? route.children.map((item) => {
                     return (item.hidden)
                         ? null
-                        : getItem(substr(item.path, substr(route.path)), item.meta?.title, getIcon(item.meta?.icon));
+                        : getItem(pathJoin(item.path, pathJoin(route.path)), item.meta?.title, makeIcon(item.meta?.icon));
                 }).filter(Boolean)
                 : null,
         );

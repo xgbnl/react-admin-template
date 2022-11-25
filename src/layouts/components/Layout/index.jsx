@@ -3,6 +3,7 @@ import SideBar from "../Sider";
 import CustomHeader from '../Header';
 import CustomFooter from '../Footer';
 import CustomContent from '../Content';
+import Breadcrumb from '../Breadcrumb';
 import { Outlet } from 'react-router-dom';
 
 const CustomLayout = () => {
@@ -11,6 +12,7 @@ const CustomLayout = () => {
             <SideBar />
             <Layout>
                 <CustomHeader />
+                <Breadcrumb/>
                 <CustomContent>
                     <Outlet />
                 </CustomContent>

@@ -57,7 +57,7 @@ export const permissionRoutes = [
         element: <CustomLayout/>,
         children: [
             {
-                path: '/dashboard',
+                path: 'dashboard',
                 name: 'Dashboard',
                 element: load(Dashboard),
                 meta: {title: '仪表盘', icon: 'DashboardOutlined'},
