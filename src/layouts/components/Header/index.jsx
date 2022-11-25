@@ -8,11 +8,10 @@ const {Header} = Layout;
 const CustomHeader = () => {
     return (
         <Header>
-
             <div className="avatar-wrap">
                 <CustomAvatar avatar={settings.avatarApi}/>
+                <h5>Admin</h5>
             </div>
-
         </Header>
     );
 }
