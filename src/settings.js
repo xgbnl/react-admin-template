@@ -16,12 +16,6 @@ const settings = {
 
     // 头像接口
     avatarApi: 'https://joeschmoe.io/api/v1/random',
-
-    // 加载组件
-    loading: {
-        header: 'Pro',
-        footer: 'design',
-    }
 };
 
 export default settings;
