@@ -12,7 +12,7 @@ const settings = {
     footer: 'Ant Design ©2018 Created by Ant UED',
 
     // 侧边栏主题
-    siderBarTheme: 'dark', // light dark
+    sideBarTheme: 'dark', // light dark
 
     // 头像接口
     avatarApi: 'https://joeschmoe.io/api/v1/random',
