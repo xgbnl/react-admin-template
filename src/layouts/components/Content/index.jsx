@@ -1,4 +1,5 @@
 import { Layout } from "antd";
+import './index.scss'
 
 const {Content} = Layout;
 
