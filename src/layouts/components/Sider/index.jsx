@@ -1,86 +1,20 @@
-import {Layout, Menu} from "antd";
-import {useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
-import {findSideBarRoutes} from "@/router";
-import * as Icons from '@ant-design/icons';
-import {createElement} from 'react';
-import settings from "@/settings";
+import {Layout} from "antd";
+import { useState} from "react";
 import Trigger from "@/layouts/components/Trigger/index.jsx";
 import Logo from "@/layouts/components/Logo/index.jsx";
+import CustomMenu from "@/layouts/components/Menu/index.jsx";
+
+import settings from "@/settings";
 import './index.scss'
 
 const {Sider} = Layout;
 
-const getItem = (key, label, icon, children = null, type = '') => {
-    return {
-        key,
-        label,
-        children,
-        icon,
-        type,
-    };
-}
-
-// 拼接路径
-const pathJoin = (path, parentPath = null) => {
-    if (path.indexOf('/') !== 0) {
-        path = `/${path}`
-    }
-    return parentPath ? parentPath + path : path;
-}
-
-const makeIcon = (icon) => {
-    return createElement(Icons[icon ? icon : 'AntDesignOutlined']);
-}
-
 const SideBar = () => {
 
     const [collapsed, setCollapsed] = useState(false);
-    const [openKeys, setOpenKeys] = useState([]);
-    const [selectedKeys, setSelectdKeys] = useState([]);
 
     const onCollapse = (collapsed) => {
         setCollapsed(collapsed);
-    }
-
-    const location = useLocation();
-    const navigate = useNavigate();
-
-    const {pathname} = location;
-
-    useEffect(() => {
-        // 默认打开项
-        const openKeys = pathname.split('/').slice(0, 3).join('/');
-        setOpenKeys([openKeys]);
-
-        // 默认选择项
-        const selectedKeys = pathname.split('/').slice(0).join('');
-        setSelectdKeys([selectedKeys])
-    }, [pathname]);
-
-    const routes = findSideBarRoutes();
-
-    const menus = routes.map(route => {
-        return getItem(
-            pathJoin(route.path),
-            route.meta?.title,
-            makeIcon(route.meta?.icon),
-            (route.children && route.children.length)
-                ? route.children.map((item) => {
-                    return (item.hidden)
-                        ? null
-                        : getItem(pathJoin(item.path, pathJoin(route.path)), item.meta?.title, makeIcon(item.meta?.icon));
-                }).filter(Boolean)
-                : null,
-        );
-    });
-
-    const handleMenuClick = ({key}) => {
-        navigate(key);
-    }
-
-    const handleOpenChange = (openKeys) => {
-        setOpenKeys(openKeys);
     }
 
     return (
@@ -93,15 +27,7 @@ const SideBar = () => {
             trigger={<Trigger collapsed={collapsed} theme={settings.sideBarTheme}/>}
         >
             <Logo logo={settings.logo} title={settings.title} collapsed={collapsed}/>
-            <Menu items={menus}
-                  theme={settings.sideBarTheme}
-                  openKeys={openKeys}
-                  selectedKeys={selectedKeys}
-                  onClick={handleMenuClick}
-                  onOpenChange={handleOpenChange}
-                  mode="inline"
-                  inlineIndent={48}
-            />
+            <CustomMenu theme={settings.sideBarTheme}/>
         </Sider>
     );
 }
