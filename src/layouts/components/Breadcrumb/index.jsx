@@ -33,38 +33,37 @@ const CustomBreadcrumb = () => {
     const location = useLocation();
     const {pathname} = location;
 
-    const [breadcrumbMaps, setBreadcrumbMaps] = useState({});
+    const maps = createBreadcrumbMaps(findSideBarRoutes());
+
+    const [breadcrumbMaps, setBreadcrumbMaps] = useState(maps);
 
     useEffect(() => {
-        const maps = createBreadcrumbMaps(findSideBarRoutes());
         setBreadcrumbMaps(maps);
     },[pathname])
 
-    console.log(breadcrumbMaps)
+    const pathSnippets = pathname.split('/').filter(i => i);
+    
+    const extraBreadcrumbItems = pathSnippets.map((_, index) => {
+        const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+        return (
+            <BreadcrumbItem key={url}>
+                {
+                    breadcrumbMaps[url].isParent
+                        ? <span>{breadcrumbMaps[url].label}</span>
+                        : <Link to={url}>{breadcrumbMaps[url].label}</Link>
+                }
+            </BreadcrumbItem>
+        );
+    })
 
-    // const pathSnippets = pathname.split('/').filter(i => i);
-    //
-    // const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-    //     const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-    //     return (
-    //         <BreadcrumbItem key={url}>
-    //             {
-    //                 breadcrumbMaps[url].isParent
-    //                     ? <span>{breadcrumbMaps[url].label}</span>
-    //                     : <Link to={url}>{breadcrumbMaps[url].label}</Link>
-    //             }
-    //         </BreadcrumbItem>
-    //     );
-    // })
-
-    // const breadcrumbItems = [
-    //     <BreadcrumbItem key='home'>
-    //         <Link to='/'>首页</Link>
-    //     </BreadcrumbItem>
-    // ].concat(extraBreadcrumbItems)
+    const breadcrumbItems = [
+        <BreadcrumbItem key='home'>
+            <Link to='/'>首页</Link>
+        </BreadcrumbItem>
+    ].concat(extraBreadcrumbItems)
 
     return (
-        <Breadcrumb></Breadcrumb>
+        <Breadcrumb>{breadcrumbItems}</Breadcrumb>
     );
 }
 
