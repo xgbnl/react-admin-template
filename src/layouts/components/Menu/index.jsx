@@ -83,6 +83,7 @@ const CustomMenu = ({theme}) => {
     const routes = findSideBarRoutes();
     const menuItems = menuFactory(routes);
     const handleMenuClick = ({key}) => {
+
         navigate(key);
     }
 

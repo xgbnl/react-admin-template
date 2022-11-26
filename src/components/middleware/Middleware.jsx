@@ -15,6 +15,7 @@ const Middleware = (NextComponent) => {
         }
 
         // 如果token存在，而不存在name，那就去请求接口获取用户信息
+        // 这步说明刚刚获取到token并且存入了redux，但是并没有去请求用户接口
         if (!name) {
             const dispatch = useAppDispatch();
             dispatch(getUserAsync());

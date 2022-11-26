@@ -1,23 +1,26 @@
-import { Dropdown,Avatar,Image } from "antd";
-
-const items = [
-    {
-      key: '1',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-          退出登录
-        </a>
-      ),
-    },
-    {
-
-    }
-  ];
+import {Dropdown, Avatar, Image} from "antd";
+import {useAppDispatch} from "@/app/hooks.js";
+import {logoutAsync} from "@/app/reducers/user/UserReducer.js";
 
 const CustomAvatar = ({avatar}) => {
+
+    const dispatch = useAppDispatch();
+    const handelLogout = () => {
+        dispatch(logoutAsync())
+    }
+
+    const items = [
+        {
+            key: '1',
+            label: (
+                <a onClick={handelLogout}>退出登录</a>
+            ),
+        },
+    ];
+
     return (
         <Dropdown menu={{items}} placement='bottom'>
-            <Avatar size="large" src={<Image src={avatar} style={{ width: 32 }} />} />
+            <Avatar size="large" src={<Image src={avatar} style={{width: 32}}/>}/>
         </Dropdown>
     );
 }

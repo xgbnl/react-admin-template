@@ -4,7 +4,7 @@ import {load} from "@/router/module/effect.jsx";
 const Role = lazy(() => import('@pages/permission/role'))
 const Menu = lazy(() => import('@pages/permission/menu'))
 
-export const asyncRoutes = [
+const asyncRoutes = [
     {
         path: 'permission',
         name: 'Permission',
@@ -25,3 +25,5 @@ export const asyncRoutes = [
         ],
     }
 ];
+
+export default asyncRoutes;

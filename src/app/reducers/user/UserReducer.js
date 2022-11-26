@@ -7,52 +7,42 @@ const initialState = {
     token: getToken() || '',
     name: '',
     avatar: '',
-    routes: [
-        'Permission',
-        'Role',
-        'Menu',
-    ],
+    routes: [],
     buttons: [],
 };
 
 // 登录
 export const loginAsync = createAsyncThunk(
     'user/loginAsync',
-    ({name, password}) => loginReq(name, password),
+    ({name, password}) => loginReq({name, password}),
 );
 
 // 注销
 export const logoutAsync = createAsyncThunk(
     'user/logoutAsync',
-    () => logoutReq
+    () => logoutReq()
 )
 
 // 获取用户
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
-    () => getUser,
+     () => getUser(),
 );
 
 export const userReducer = createSlice({
     name: 'user',
     initialState,
-    reducers: {
-        storeToken: (state, action) => {
-            const token = action.payload;
-            state.token = token;
-            setToken(token);
-        }
-    },
+    reducers: {},
     extraReducers(builder) {
         builder.addCase(loginAsync.fulfilled, (state, action) => {
 
-            const token = action.payload;
-            state.token = token;
-            setToken(token);
+            const {scope} = action.payload.response;
+            state.token = scope;
+            setToken(scope);
 
         }).addCase(getUserAsync.fulfilled, (state, action) => {
 
-            const {name, avatar, routes, buttons} = action.payload;
+            const {name, avatar, routes, buttons} = action.payload.response;
 
             state.name = name;
             state.avatar = avatar;
@@ -72,8 +62,6 @@ export const userReducer = createSlice({
 
 // 暴露reducer
 export default userReducer.reducer;
-
-export const {storeToken} = userReducer.actions;
 
 // 暴露用于读取当前状态数据的select函数
 export const selectUser = (state) => state.user;

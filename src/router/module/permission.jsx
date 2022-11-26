@@ -1,7 +1,7 @@
 import {useRoutes} from "react-router-dom";
 import {cloneDeep} from "lodash/lang.js";
-import {asyncRoutes} from "@/router/module/routes.jsx";
-import {constantRoutes} from "@/router/index.jsx";
+import asyncRoutes from "@/router/module/routes.jsx";
+import constantRoutes from "@/router/index.jsx";
 import {filterRouter} from "./effect.jsx";
 import {useAppSelector} from "@/app/hooks.js";
 import {selectUser} from "@/app/reducers/user/UserReducer.js";
@@ -28,7 +28,6 @@ const allRoutes = cloneDeep(assignRoute(constantRoutes, asyncRoutes));
 export const useAppRoutes = () => {
 
     const {routes} = useAppSelector(selectUser);
-
     // 合并路由白名单与异步路由名单
     const permissionRoutes = [...allowList, ...routes];
 
@@ -59,11 +58,9 @@ export const findSideBarRoutes = () => {
  */
 function assignRoute(constantRoutes, asyncRoutes) {
     const parentIndex = findRouteIndex(constantRoutes);
-
     const {children} = constantRoutes[parentIndex];
 
     const index = findRouteIndex(children, 'dashboard')
-
     children.splice(index + 1, 0, ...asyncRoutes);
 
     return constantRoutes;

@@ -4,6 +4,7 @@ import {findSideBarRoutes} from "@/router/module/permission.jsx";
 import {Link} from 'react-router-dom';
 import {pathJoin} from "@utils/utils.js";
 import './index.scss';
+import {useEffect, useState} from "react";
 
 const BreadcrumbItem = Breadcrumb.Item;
 
@@ -32,31 +33,38 @@ const CustomBreadcrumb = () => {
     const location = useLocation();
     const {pathname} = location;
 
-    const breadcrumbMaps = createBreadcrumbMaps(findSideBarRoutes());
+    const [breadcrumbMaps, setBreadcrumbMaps] = useState({});
 
-    const pathSnippets = pathname.split('/').filter(i => i);
+    useEffect(() => {
+        const maps = createBreadcrumbMaps(findSideBarRoutes());
+        setBreadcrumbMaps(maps);
+    },[pathname])
 
-    const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-        const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-        return (
-            <BreadcrumbItem key={url}>
-                {
-                    breadcrumbMaps[url].isParent
-                        ? <span>{breadcrumbMaps[url].label}</span>
-                        : <Link to={url}>{breadcrumbMaps[url].label}</Link>
-                }
-            </BreadcrumbItem>
-        );
-    })
+    console.log(breadcrumbMaps)
 
-    const breadcrumbItems = [
-        <BreadcrumbItem key='home'>
-            <Link to='/'>首页</Link>
-        </BreadcrumbItem>
-    ].concat(extraBreadcrumbItems);
+    // const pathSnippets = pathname.split('/').filter(i => i);
+    //
+    // const extraBreadcrumbItems = pathSnippets.map((_, index) => {
+    //     const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+    //     return (
+    //         <BreadcrumbItem key={url}>
+    //             {
+    //                 breadcrumbMaps[url].isParent
+    //                     ? <span>{breadcrumbMaps[url].label}</span>
+    //                     : <Link to={url}>{breadcrumbMaps[url].label}</Link>
+    //             }
+    //         </BreadcrumbItem>
+    //     );
+    // })
+
+    // const breadcrumbItems = [
+    //     <BreadcrumbItem key='home'>
+    //         <Link to='/'>首页</Link>
+    //     </BreadcrumbItem>
+    // ].concat(extraBreadcrumbItems)
 
     return (
-        <Breadcrumb>{breadcrumbItems}</Breadcrumb>
+        <Breadcrumb></Breadcrumb>
     );
 }
 

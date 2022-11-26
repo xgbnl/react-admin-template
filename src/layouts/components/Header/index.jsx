@@ -1,16 +1,21 @@
 import {Layout} from "antd";
 import CustomAvatar from "../Avatar";
+import {useAppSelector} from "@/app/hooks.js";
+import {selectUser} from "@/app/reducers/user/UserReducer.js";
+
 import './index.scss';
-import settings from "@/settings";
 
 const {Header} = Layout;
 
 const CustomHeader = () => {
+
+    const {name, avatar} = useAppSelector(selectUser);
+
     return (
         <Header>
             <div className="avatar-wrap">
-                <CustomAvatar avatar={settings.avatarApi}/>
-                <h5>Admin</h5>
+                <CustomAvatar avatar={avatar}/>
+                <h5>{name}</h5>
             </div>
         </Header>
     );

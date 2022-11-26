@@ -8,7 +8,7 @@ const Dashboard = lazy(() => import('@pages/dashboard'));
 const Access = lazy(() => import('@pages/access'));
 
 // 404 、*路由
-export const anyRoute = [
+const anyRoute = [
     {
         path: '*',
         element: load(NotFound)
@@ -16,7 +16,7 @@ export const anyRoute = [
 ];
 
 // 基础路由
-export const constantRoutes = [
+const constantRoutes = [
     {
         path: '/',
         name: 'Home',
@@ -43,3 +43,5 @@ export const constantRoutes = [
     },
     ...anyRoute,
 ];
+
+export default constantRoutes;

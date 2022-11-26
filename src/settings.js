@@ -13,9 +13,6 @@ const settings = {
 
     // 侧边栏主题
     sideBarTheme: 'dark', // light dark
-
-    // 头像接口
-    avatarApi: 'https://joeschmoe.io/api/v1/random',
 };
 
 export default settings;
