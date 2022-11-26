@@ -1,4 +1,3 @@
-import {Navigate} from "react-router-dom";
 import CustomLayout from "@/layouts/components/Layout";
 import {lazy} from "react";
 import {load} from "@/router/module/effect.jsx";
