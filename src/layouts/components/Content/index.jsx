@@ -1,13 +1,12 @@
-import { Layout } from "antd";
+import {Layout} from "antd";
 import './index.scss'
-
 const {Content} = Layout;
 
-const CustomContent = (props) => {
+const CustomContent = ({children}) => {
     return (
-        <Content>
-            <div className="site-layout-backgroud">
-                {props.children}
+        <Content style={{margin: '15px', minHeight: 280,}}>
+            <div className='content'>
+                {children}
             </div>
         </Content>
     );
