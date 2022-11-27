@@ -2,40 +2,22 @@ import {Breadcrumb} from "antd";
 import {useLocation} from "react-router-dom";
 import {useSideBarRoutes} from "@/router/module/permission.jsx";
 import {Link} from 'react-router-dom';
-import {pathJoin} from "@utils/utils.js";
 import './index.scss';
 import {useState} from "react";
+import useCommon from "@/common/useCommon.js";
 
 const BreadcrumbItem = Breadcrumb.Item;
-
-// 创建面包屑maps
-const createBreadcrumbMaps = () => {
-    const breadcrumbMaps = {};
-    const routes = useSideBarRoutes();
-
-    const find = (routes, parentPath = null) => {
-        for (const route of routes) {
-            if (!route.hidden) {
-                breadcrumbMaps[pathJoin(route.path, parentPath)] = {
-                    label: route.meta?.title,
-                };
-            }
-            if (route.children && route.children.length) {
-                breadcrumbMaps[pathJoin(route.path, parentPath)].isParent = true;
-                find(route.children, pathJoin(route.path, parentPath));
-            }
-        }
-    }
-    find(routes);
-    return breadcrumbMaps;
-}
 
 const CustomBreadcrumb = () => {
 
     const location = useLocation();
     const {pathname} = location;
 
-    const [breadcrumbMaps] = useState(createBreadcrumbMaps());
+    const routes = useSideBarRoutes();
+
+    const {createMaps} = useCommon();
+
+    const [breadcrumbMaps] = useState(createMaps(routes));
 
     const pathSnippets = pathname.split('/').filter(i => i);
     const extraBreadcrumbItems = pathSnippets.map((_, index) => {
