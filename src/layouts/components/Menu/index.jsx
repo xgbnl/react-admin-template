@@ -1,9 +1,10 @@
 import {ConfigProvider, Menu} from "antd";
 import {createElement, useEffect, useState} from "react";
 import * as Icons from "@ant-design/icons";
-import {pathJoin} from "@utils/utils.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useSideBarRoutes} from "@/router/module/permission.jsx";
+import useCommon from "@/common/useCommon.js";
+import settings from "@/settings.js";
 
 const getItem = (key, label, icon, children = null, type = '') => {
     return {
@@ -38,6 +39,11 @@ const CustomMenu = ({theme}) => {
     const [openKeys, setOpenKeys] = useState([]);
     const [selectedKeys, setSelectdKeys] = useState([]);
 
+    const routes = useSideBarRoutes();
+    const {pathJoin, createMaps} = useCommon();
+
+    const menuMaps = createMaps(routes);
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -45,9 +51,10 @@ const CustomMenu = ({theme}) => {
     useEffect(() => {
         const selectedKeys = pathname.split('/').slice(0).join('/')
         setSelectdKeys([selectedKeys])
+
+        document.title = settings.title + '-' + menuMaps[selectedKeys].label;
     }, [pathname]);
 
-    const routes = useSideBarRoutes();
     // 存储有子项的父级key
     const rootKeys = [];
     let children = null;
@@ -69,6 +76,11 @@ const CustomMenu = ({theme}) => {
     }).filter(Boolean);
 
     const handleMenuClick = ({key}) => {
+
+        // const title = document.title;
+        // const label = menuMaps[key].label ?? '';
+        //
+        // document.title = `${title}-${label}`
         navigate(key);
     }
 
