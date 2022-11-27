@@ -11,7 +11,7 @@ const Login = () => {
 
     const dispatch = useAppDispatch();
 
-    const {antdMessage} = useAntDesign();
+    const {rules, antdMessage} = useAntDesign();
 
     const onFinish = async (values) => {
         const action = await dispatch(loginAsync(values))
@@ -20,8 +20,6 @@ const Login = () => {
             antdMessage('登录成功');
         }
     };
-
-    const {rules} = useAntDesign();
 
     return (
         <div className='login-container'>
