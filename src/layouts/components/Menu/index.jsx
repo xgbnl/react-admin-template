@@ -19,22 +19,29 @@ const makeIcon = (icon) => {
     return createElement(Icons[icon ? icon : 'AntDesignOutlined']);
 }
 
+// 存储有子项的父级key
+const rootKeys = [];
+
 const menuFactory = (routes) => {
+
+    let children = null;
+
     return routes.map(route => {
-        return route.hidden
-            ? null
-            : getItem(
-                pathJoin(route.path),
-                route.meta?.title,
-                makeIcon(route.meta?.icon),
-                (route.children && route.children.length)
-                    ? route.children.map((item) => {
-                        return (item.hidden)
-                            ? null
-                            : getItem(pathJoin(item.path, pathJoin(route.path)), item.meta?.title, makeIcon(item.meta?.icon));
-                    }).filter(Boolean)
-                    : null,
-            );
+        if (route.hidden) {
+            return null;
+        }
+
+        if (route.children && route.children.length) {
+            rootKeys.push(pathJoin(route.path));
+
+            children = route.children.map((item) => {
+                return (!item.hidden)
+                    ? getItem(pathJoin(item.path, pathJoin(route.path)), item.meta?.title, makeIcon(item.meta?.icon))
+                    : null;
+            }).filter(Boolean)
+        }
+
+       return getItem(pathJoin(route.path), route.meta?.title, makeIcon(route.meta?.icon), children);
     }).filter(Boolean);
 }
 
@@ -62,42 +69,39 @@ const CustomMenu = ({theme}) => {
 
     const {pathname} = location;
 
-    const strWithStartOrEnd = (hacky, needle = '/') => {
-        return (hacky.indexOf(needle) === 0) && (hacky.indexOf(needle, hacky.length) === 0);
-    }
-
     useEffect(() => {
-        // 默认打开项
-        const openKeys = strWithStartOrEnd(pathname)
-            ? '/dashboard'
-            : pathname.split('/').slice(0, 3).join('/');
-        setOpenKeys([openKeys]);
         // 默认选择项
-        const selectedKeys = strWithStartOrEnd(pathname)
-            ? '/dashboard'
-            : pathname.split('/').slice(0).join('')
+        const selectedKeys = pathname.split('/').slice(0).join('/')
         setSelectdKeys([selectedKeys])
 
     }, [pathname]);
 
     const routes = findSideBarRoutes();
     const menuItems = menuFactory(routes);
-    const handleMenuClick = ({key}) => {
 
+    const handleMenuClick = ({key}) => {
         navigate(key);
     }
 
-    const handleOpenChange = (openKeys) => {
-        setOpenKeys(openKeys);
+    // 点击菜单，收起其他展开的所有菜单，保持菜单聚焦简洁。
+    const handleOpenChange = (keys) => {
+        const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+
+        if (rootKeys.indexOf(latestOpenKey) === -1) {
+            setOpenKeys(keys);
+        } else {
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
     }
 
     return (
         <ConfigProvider theme={menuTheme}>
             <Menu items={menuItems}
                   theme={theme}
-                  defaultSelectedKeys={'/dashboard'}
                   onClick={handleMenuClick}
                   onOpenChange={handleOpenChange}
+                  openKeys={openKeys}
+                  selectedKeys={selectedKeys}
                   mode="inline"
                   inlineIndent={48}
             />

@@ -15,38 +15,36 @@ const allowList = [
     'Access',
 ];
 
-/**
- * 拷贝合并后的本地路由和异步路由表
- * @type {*}
- */
 const allRoutes = cloneDeep(assignRoute(constantRoutes, asyncRoutes));
 
 /**
  * 注册路由
  * @returns {React.ReactElement}
  */
-export const useAppRoutes = () => {
-
+const allSyncRoutes = () => {
     const {routes} = useAppSelector(selectUser);
-    // 合并路由白名单与异步路由名单
     const permissionRoutes = [...allowList, ...routes];
 
-    const resultRouter = permissionRoutes.length ? filterRouter({
+    return permissionRoutes.length ? filterRouter({
         asyncRoutes: allRoutes,
         permissionRoutes,
     }) : constantRoutes;
+}
 
-    return useRoutes([...resultRouter]);
+export const useAppRoutes = () => {
+    return useRoutes([...allSyncRoutes()]);
 }
 
 /**
- * 找到要渲染成左侧菜单的路由
+ * 根据路由权限渲染左侧菜单
  * @returns {*}
  */
 export const findSideBarRoutes = () => {
-    const currentIndex = findRouteIndex(allRoutes);
 
-    return allRoutes[currentIndex].children;
+    const allRoutes = allSyncRoutes();
+    const rootIndex = findRouteIndex(allRoutes);
+
+    return allRoutes[rootIndex].children.filter(Boolean);
 }
 
 /**
