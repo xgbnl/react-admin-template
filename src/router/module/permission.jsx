@@ -39,7 +39,7 @@ export const useAppRoutes = () => {
  * 根据路由权限渲染左侧菜单
  * @returns {*}
  */
-export const findSideBarRoutes = () => {
+export const useSideBarRoutes = () => {
 
     const allRoutes = allSyncRoutes();
     const rootIndex = findRouteIndex(allRoutes);
