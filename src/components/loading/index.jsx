@@ -2,11 +2,7 @@ import {Spin} from "antd";
 import './index.scss';
 
 const Loading = () => {
-    return (
-        <div className="spin-wrapper">
-            <Spin className="spin" size='large'/>
-        </div>
-    )
+    return <Spin className="spin" size='large'/>
 }
 
 export default Loading;
