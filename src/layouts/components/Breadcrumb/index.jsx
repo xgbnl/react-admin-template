@@ -1,6 +1,6 @@
 import {Breadcrumb} from "antd";
 import {useLocation} from "react-router-dom";
-import {findSideBarRoutes} from "@/router/module/permission.jsx";
+import {useSideBarRoutes} from "@/router/module/permission.jsx";
 import {Link} from 'react-router-dom';
 import {pathJoin} from "@utils/utils.js";
 import './index.scss';
@@ -11,7 +11,7 @@ const BreadcrumbItem = Breadcrumb.Item;
 // 创建面包屑maps
 const createBreadcrumbMaps = () => {
     const breadcrumbMaps = {};
-    const routes = findSideBarRoutes();
+    const routes = useSideBarRoutes();
 
     const find = (routes, parentPath = null) => {
         for (const route of routes) {
@@ -53,7 +53,7 @@ const CustomBreadcrumb = () => {
 
     const breadcrumbItems = [
         <BreadcrumbItem key='home'>
-            <Link to='/'>首页</Link>
+            <Link to='/dashboard'>首页</Link>
         </BreadcrumbItem>
     ].concat(extraBreadcrumbItems)
 
