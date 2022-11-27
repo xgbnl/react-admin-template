@@ -1,9 +1,5 @@
 import {message} from "antd";
 
-/**
- * hooks组件
- * @returns {{rules: {required: (function(*): {message: string, required: boolean})}}}
- */
 const useAntDesign = () => {
 
     const rules = {
@@ -15,22 +11,22 @@ const useAntDesign = () => {
         }
     };
 
-    const antdMessage = async ({content, type = 'success', duration = 2 * 1000}) => {
+    const antdMessage = (content, type = 'success', duration = 5) => {
         switch (type) {
             case 'success':
-                await message.success(content, duration);
+                message.success(content, duration);
                 break;
             case 'error':
-                await message.error(content, duration);
+                message.error(content, duration);
                 break;
             case 'info':
-                await message.info(content, duration);
+                message.info(content, duration);
                 break;
             case 'warning':
-                await message.warning(content, duration);
+                message.warning(content, duration);
                 break;
             default:
-                await message.loading(content, duration);
+                message.loading(content, duration);
         }
     }
 
