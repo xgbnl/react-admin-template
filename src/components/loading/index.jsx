@@ -1,5 +1,4 @@
 import {Spin} from "antd";
-import settings from "@/settings";
 import './index.scss';
 
 const Loading = () => {

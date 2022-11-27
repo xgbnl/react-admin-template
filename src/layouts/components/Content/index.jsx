@@ -4,7 +4,7 @@ const {Content} = Layout;
 
 const CustomContent = ({children}) => {
     return (
-        <Content style={{margin: '15px', minHeight: 280,}}>
+        <Content style={{margin: '15px'}}>
             <div className='content'>
                 {children}
             </div>
