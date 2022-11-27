@@ -3,7 +3,7 @@ import {createElement, useEffect, useState} from "react";
 import * as Icons from "@ant-design/icons";
 import {pathJoin} from "@utils/utils.js";
 import {useLocation, useNavigate} from "react-router-dom";
-import {findSideBarRoutes} from "@/router/module/permission.jsx";
+import {useSideBarRoutes} from "@/router/module/permission.jsx";
 
 const getItem = (key, label, icon, children = null, type = '') => {
     return {
@@ -17,32 +17,6 @@ const getItem = (key, label, icon, children = null, type = '') => {
 
 const makeIcon = (icon) => {
     return createElement(Icons[icon ? icon : 'AntDesignOutlined']);
-}
-
-// 存储有子项的父级key
-const rootKeys = [];
-
-const menuFactory = (routes) => {
-
-    let children = null;
-
-    return routes.map(route => {
-        if (route.hidden) {
-            return null;
-        }
-
-        if (route.children && route.children.length) {
-            rootKeys.push(pathJoin(route.path));
-
-            children = route.children.map((item) => {
-                return (!item.hidden)
-                    ? getItem(pathJoin(item.path, pathJoin(route.path)), item.meta?.title, makeIcon(item.meta?.icon))
-                    : null;
-            }).filter(Boolean)
-        }
-
-       return getItem(pathJoin(route.path), route.meta?.title, makeIcon(route.meta?.icon), children);
-    }).filter(Boolean);
 }
 
 const menuTheme = {
@@ -68,16 +42,31 @@ const CustomMenu = ({theme}) => {
     const navigate = useNavigate();
 
     const {pathname} = location;
-
     useEffect(() => {
-        // 默认选择项
         const selectedKeys = pathname.split('/').slice(0).join('/')
         setSelectdKeys([selectedKeys])
-
     }, [pathname]);
 
-    const routes = findSideBarRoutes();
-    const menuItems = menuFactory(routes);
+    const routes = useSideBarRoutes();
+    // 存储有子项的父级key
+    const rootKeys = [];
+    let children = null;
+    const menuItems = routes.map(route => {
+        if (route.hidden) {
+            return null;
+        }
+
+        if (route.children && route.children.length) {
+            rootKeys.push(pathJoin(route.path));
+            children = route.children.map((item) => {
+                return (!item.hidden)
+                    ? getItem(pathJoin(item.path, pathJoin(route.path)), item.meta?.title, makeIcon(item.meta?.icon))
+                    : null;
+            }).filter(Boolean)
+        }
+
+        return getItem(pathJoin(route.path), route.meta?.title, makeIcon(route.meta?.icon), children);
+    }).filter(Boolean);
 
     const handleMenuClick = ({key}) => {
         navigate(key);
