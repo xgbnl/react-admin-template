@@ -30,17 +30,16 @@ const treeRouteFilter = ({routeHash, asyncRoutes, lv = 0}) => {
 }
 
 // hash路由
-export const filterRouter = ({asyncRoutes, permissionRoutes}) => {
-
-    const createRouteHash = (() => {
+export const filterRouter = ({asyncRoutes, allowList}) => {
+    const createRouteHash = () => {
         const hash = {};
 
-        permissionRoutes.forEach(route => {
+        allowList.forEach(route => {
             hash[route] = true
         });
 
         return hash;
-    });
+    };
 
     const routeHash = createRouteHash();
 

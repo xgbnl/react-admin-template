@@ -23,11 +23,11 @@ const allRoutes = cloneDeep(assignRoute(constantRoutes, asyncRoutes));
  */
 const allSyncRoutes = () => {
     const {routes} = useAppSelector(selectUser);
-    const permissionRoutes = [...allowList, ...routes];
+    const permissionRoutes = [...routes];
 
     return permissionRoutes.length ? filterRouter({
         asyncRoutes: allRoutes,
-        permissionRoutes,
+        allowList: [...permissionRoutes, ...allowList],
     }) : constantRoutes;
 }
 
