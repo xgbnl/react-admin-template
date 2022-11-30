@@ -9,7 +9,7 @@ import './index.scss'
 
 const {Sider} = Layout;
 
-const SideBar = () => {
+const SideBar = ({routes}) => {
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -27,7 +27,7 @@ const SideBar = () => {
             trigger={<Trigger collapsed={collapsed} theme={settings.sideBarTheme}/>}
         >
             <Logo logo={settings.logo} title={settings.title} collapsed={collapsed}/>
-            <CustomMenu theme={settings.sideBarTheme}/>
+            <CustomMenu theme={settings.sideBarTheme} routes={routes}/>
         </Sider>
     );
 }

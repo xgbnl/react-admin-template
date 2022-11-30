@@ -5,14 +5,18 @@ import CustomFooter from '../Footer';
 import CustomContent from '../Content';
 import Breadcrumb from '../Breadcrumb';
 import {Outlet} from 'react-router-dom';
+import {useSideBarRoutes} from "@/router/module/permission.jsx";
 
 const CustomLayout = () => {
+
+    const routes = useSideBarRoutes();
+
     return (
         <Layout style={{height: '100vh'}}>
-            <SideBar/>
+            <SideBar routes={routes}/>
             <Layout>
                 <CustomHeader/>
-                <Breadcrumb/>
+                <Breadcrumb routes={routes}/>
                 <CustomContent>
                     <Outlet/>
                 </CustomContent>

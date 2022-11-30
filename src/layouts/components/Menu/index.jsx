@@ -2,7 +2,6 @@ import {ConfigProvider, Menu} from "antd";
 import {createElement, useEffect, useState} from "react";
 import * as Icons from "@ant-design/icons";
 import {useLocation, useNavigate} from "react-router-dom";
-import {useSideBarRoutes} from "@/router/module/permission.jsx";
 import useCommon from "@/common/useCommon.js";
 import settings from "@/settings.js";
 
@@ -35,11 +34,10 @@ const menuTheme = {
     },
 }
 
-const CustomMenu = ({theme}) => {
+const CustomMenu = ({theme,routes}) => {
     const [openKeys, setOpenKeys] = useState([]);
     const [selectedKeys, setSelectdKeys] = useState([]);
 
-    const routes = useSideBarRoutes();
     const {pathJoin, createMaps} = useCommon();
 
     const menuMaps = createMaps(routes);

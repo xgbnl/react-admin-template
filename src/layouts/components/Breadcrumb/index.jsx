@@ -1,6 +1,5 @@
 import {Breadcrumb} from "antd";
 import {useLocation} from "react-router-dom";
-import {useSideBarRoutes} from "@/router/module/permission.jsx";
 import {Link} from 'react-router-dom';
 import './index.scss';
 import {useState} from "react";
@@ -8,12 +7,10 @@ import useCommon from "@/common/useCommon.js";
 
 const BreadcrumbItem = Breadcrumb.Item;
 
-const CustomBreadcrumb = () => {
+const CustomBreadcrumb = ({routes}) => {
 
     const location = useLocation();
     const {pathname} = location;
-
-    const routes = useSideBarRoutes();
 
     const {createMaps} = useCommon();
 
