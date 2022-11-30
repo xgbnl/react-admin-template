@@ -5,6 +5,10 @@ import useAntDesign from "@/common/useAntDesign.js";
 let reqConfig
 let loadingE
 
+/**
+ *
+ * @type {axios.AxiosInstance}
+ */
 const service = axios.create()
 
 const {antdMessage} = useAntDesign();
@@ -87,13 +91,8 @@ service.interceptors.response.use(
     (err) => {
         /*http错误处理，处理跨域，not-found，401，500*/
         if (loadingE) loadingE.close()
-        ElMessage({
-            message: err,
-            type: 'error',
-            duration: 2 * 1000
-        })
+        antdMessage(err);
         //如果是跨域
-        //Network Error,cross origin
         const errObj = {
             msg: err.toString(),
             reqUrl: reqConfig.baseURL + reqConfig.url,
