@@ -1,7 +1,20 @@
+import {Result,Button} from "antd";
+import {useNavigate} from "react-router-dom";
+
 const Access = () => {
 
+    const navigate = useNavigate();
+    const onClick = () => {
+        navigate('/');
+    }
+
     return (
-        <span>对不起，您没有权限访问</span>
+        <Result
+            status="403"
+            title="403"
+            subTitle="抱歉，您没有权限访问此页面"
+            extra={<Button type="primary" onClick={onClick}>返回首页</Button>}
+        />
     );
 
 }
