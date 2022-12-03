@@ -7,7 +7,6 @@ import {
 } from '@ant-design/icons';
 import './index.scss'
 import {useEffect, useState} from "react";
-import {indexOf} from "lodash/array";
 
 const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
     const [spin, setSpin] = useState(false);
