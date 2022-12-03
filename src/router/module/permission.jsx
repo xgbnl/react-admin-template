@@ -12,7 +12,8 @@ import {selectUser} from "@/app/reducers/user/UserReducer.js";
  */
 const allowList = [
     'Dashboard',
-    'Access',
+    'Authority',
+    'NotFound',
 ];
 
 const allRoutes = cloneDeep(assignRoute(constantRoutes, asyncRoutes));

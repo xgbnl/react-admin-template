@@ -11,6 +11,8 @@ const Access = lazy(() => import('@pages/access'));
 const anyRoute = [
     {
         path: '*',
+        hidden: true,
+        name: 'NotFound',
         element: load(NotFound)
     }
 ];
@@ -29,11 +31,12 @@ const constantRoutes = [
                 meta: {title: '仪表盘', icon: 'DashboardOutlined'},
             },
             {
-                path: '*',
-                name: 'Access',
+                path: 'authority',
+                name: 'Authority',
                 hidden: true,
                 element: load(Access),
-            }
+            },
+            ...anyRoute,
         ],
     },
     {
