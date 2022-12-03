@@ -1,15 +1,16 @@
 .ant-layout-header {
-    height: 48px !important;
-    padding-inline: 5px !important;
-    background: white !important;
-    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-    z-index: 1;
+  height: 48px !important;
+  padding-inline: 5px !important;
+  background: white !important;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+  z-index: 1;
 }
 
-.avatar-wrap {
-    display: flex;
-    justify-content: end;
-    height: inherit;
-    align-items: center;
-    margin-right: 20px;
+.ant-header-container {
+  display: flex;
+  justify-content: end;
+  height: inherit;
+  align-items: center;
+  padding-right: 15px;
+  overflow: hidden;
 }

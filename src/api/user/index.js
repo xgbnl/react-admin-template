@@ -20,7 +20,7 @@ export const logoutReq = () => {
 export const getUser = () => {
     const re = {
         name: 'admin',
-        avatar: 'https://joeschmoe.io/api/v1/random',
+        avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
         routes: [
             'Permission',
             'Role',

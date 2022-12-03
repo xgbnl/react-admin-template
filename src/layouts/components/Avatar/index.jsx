@@ -1,11 +1,14 @@
 import {Dropdown, Avatar, Image, Space} from "antd";
-import {useAppDispatch} from "@/app/hooks.js";
-import {logoutAsync} from "@/app/reducers/user/UserReducer.js";
-import {UserOutlined,SettingOutlined,LogoutOutlined } from '@ant-design/icons'
+import {useAppDispatch,useAppSelector} from "@/app/hooks.js";
+import {logoutAsync,selectUser} from "@/app/reducers/user/UserReducer.js";
+import {UserOutlined,SettingOutlined,LogoutOutlined } from '@ant-design/icons';
+import './index.scss';
 
-const CustomAvatar = ({avatar}) => {
+const CustomAvatar = () => {
 
     const dispatch = useAppDispatch();
+    const {name, avatar} = useAppSelector(selectUser);
+
     const handelLogout = () => {
         dispatch(logoutAsync())
     }
@@ -45,7 +48,10 @@ const CustomAvatar = ({avatar}) => {
 
     return (
         <Dropdown menu={{items}} placement='bottom'>
-            <Avatar size="large" src={<Image src={avatar} style={{width: 32}}/>}/>
+            <div className='ant-avatar-wrapper'>
+                <Avatar size="large" src={<Image src={avatar} width={25}/>}/>
+                <span className='ant-avatar-name'>{name}</span>
+            </div>
         </Dropdown>
     );
 }
