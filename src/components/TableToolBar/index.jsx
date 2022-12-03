@@ -22,7 +22,7 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
         if (action.length) {
 
             let index = 0;
-            if (action.indexOf('Enter') !== -1 ) {
+            if (action.indexOf('Enter') !== -1) {
                 index = action.indexOf('Enter');
             } else if (action.indexOf('Leave') !== -1) {
                 index = action.indexOf('Leave');
