@@ -1,0 +1,13 @@
+.translation-container {
+  &:hover {
+    background: rgba(0,0,0,.04);
+  }
+  transition: all .3s;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.translation {
+  font-size: 17px;
+  font-weight: bold;
+}
