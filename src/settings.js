@@ -13,6 +13,9 @@ const settings = {
 
     // 侧边栏主题
     sideBarTheme: 'dark', // light dark
+
+    // 侧边栏菜单样式
+    menuStyle: 'circle' // 正方形[square] 圆形边角[circle]
 };
 
 export default settings;

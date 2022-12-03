@@ -34,7 +34,7 @@ const menuTheme = {
     },
 }
 
-const CustomMenu = ({theme,routes}) => {
+const CustomMenu = ({theme, routes}) => {
     const [openKeys, setOpenKeys] = useState([]);
     const [selectedKeys, setSelectdKeys] = useState([]);
 
@@ -94,17 +94,27 @@ const CustomMenu = ({theme,routes}) => {
     }
 
     return (
-        <ConfigProvider theme={menuTheme}>
-            <Menu items={menuItems}
-                  theme={theme}
-                  onClick={handleMenuClick}
-                  onOpenChange={handleOpenChange}
-                  openKeys={openKeys}
-                  selectedKeys={selectedKeys}
-                  mode="inline"
-                  inlineIndent={48}
+        settings.menuStyle === 'circle'
+            ? <Menu items={menuItems}
+                    theme={theme}
+                    onClick={handleMenuClick}
+                    onOpenChange={handleOpenChange}
+                    openKeys={openKeys}
+                    selectedKeys={selectedKeys}
+                    mode="inline"
+                    inlineIndent={48}
             />
-        </ConfigProvider>
+            : <ConfigProvider theme={menuTheme}>
+                <Menu items={menuItems}
+                      theme={theme}
+                      onClick={handleMenuClick}
+                      onOpenChange={handleOpenChange}
+                      openKeys={openKeys}
+                      selectedKeys={selectedKeys}
+                      mode="inline"
+                      inlineIndent={48}
+                />
+            </ConfigProvider>
     );
 }
 
