@@ -50,7 +50,7 @@ const CustomMenu = ({theme,routes}) => {
         const selectedKeys = pathname.split('/').slice(0).join('/')
         setSelectdKeys([selectedKeys])
 
-        document.title = settings.title + '-' + menuMaps[selectedKeys].label;
+        document.title = settings.title + '-' + menuMaps[selectedKeys]?.label;
     }, [pathname]);
 
     // 存储有子项的父级key

@@ -22,9 +22,9 @@ const CustomBreadcrumb = ({routes}) => {
         return (
             <BreadcrumbItem key={url}>
                 {
-                    breadcrumbMaps[url].isParent
-                        ? <span>{breadcrumbMaps[url].label}</span>
-                        : <Link to={url}>{breadcrumbMaps[url].label}</Link>
+                    breadcrumbMaps[url]?.isParent
+                        ? <span>{breadcrumbMaps[url]?.label}</span>
+                        : <Link to={url}>{breadcrumbMaps[url]?.label}</Link>
                 }
             </BreadcrumbItem>
         );
