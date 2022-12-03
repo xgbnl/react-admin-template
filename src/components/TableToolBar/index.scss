@@ -1,0 +1,24 @@
+.space-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ant-table-toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ant-table-toolbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.space-item {
+  cursor: pointer;
+}
+
+//.anticon:hover {
+//  color: #1677ff !important;
+//}
