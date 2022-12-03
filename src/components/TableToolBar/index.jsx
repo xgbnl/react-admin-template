@@ -9,7 +9,8 @@ import './index.scss'
 import {useEffect, useState} from "react";
 
 const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
-    const [spin, setSpin] = useState(false);
+    const [settingSpin, setSettingSpin] = useState(false);
+    const [reloadSpin, setReloadSpin] = useState(false);
     const [styles, setStyles] = useState({
         reload: {color: ''},
         column: {color: ''},
@@ -41,8 +42,12 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
     const onMouse = (action) => {
         setAction(action);
 
+        if (action === 'reloadEnter' || action === 'reloadLeave') {
+            setReloadSpin(!reloadSpin)
+        }
+
         if (action === 'settingEnter' || action === 'settingLeave') {
-            setSpin(!spin)
+            setSettingSpin(!settingSpin);
         }
     }
 
@@ -58,7 +63,7 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
                         <Space size={space}>
                             <Tooltip placement="top" title='刷新列表'>
                                 <div className='space-item'>
-                                    <ReloadOutlined onClick={reloadFunc} style={styles.reload}
+                                    <ReloadOutlined spin={reloadSpin} onClick={reloadFunc} style={styles.reload}
                                                     onMouseEnter={() => onMouse('reloadEnter')}
                                                     onMouseLeave={() => onMouse('reloadLeave')}
                                     />
@@ -73,7 +78,7 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
                             </Tooltip>
                             <Tooltip placement="top" title='列设置'>
                                 <div className='space-item'>
-                                    <SettingOutlined spin={spin} style={styles.setting}
+                                    <SettingOutlined spin={settingSpin} style={styles.setting}
                                                      onMouseEnter={() => onMouse('settingEnter')}
                                                      onMouseLeave={() => onMouse('settingLeave')}/>
                                 </div>
