@@ -11,10 +11,19 @@ const CustomAvatar = ({avatar}) => {
 
     const items = [
         {
+            key: '0',
+            label:  <a >个人中心</a>,
+        },
+        {
             key: '1',
-            label: (
-                <a onClick={handelLogout}>退出登录</a>
-            ),
+            label:  <a >个人设置</a>,
+        },
+        {
+            type: 'divider',
+        },
+        {
+            key: '2',
+            label:  <a onClick={handelLogout}>退出登录</a>,
         },
     ];
 
