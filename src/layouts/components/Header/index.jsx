@@ -9,7 +9,7 @@ const CustomHeader = () => {
     return (
         <Header>
             <div className="ant-header-container">
-                <Space size={20}>
+                <Space size={8}>
                     <CustomAvatar/>
                     <Translation/>
                 </Space>
