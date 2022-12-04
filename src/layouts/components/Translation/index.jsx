@@ -1,26 +1,45 @@
 import {TranslationOutlined} from '@ant-design/icons';
-import {Tooltip} from "antd";
-import {useAppDispatch, useAppSelector} from "@/app/hooks.js";
-import {selectAppLang, setLang} from "@/app/reducers/app/AppReducer.js";
+import {Dropdown, Space} from "antd";
+import {useAppDispatch} from "@/app/hooks.js";
+import {setLang} from "@/app/reducers/app/AppReducer.js";
 import './index.scss';
 
 const Translation = () => {
 
-    const lang = useAppSelector(selectAppLang);
-
     const dispatch = useAppDispatch();
 
-    const onClick = () => {
-        const localLang = lang === 'zh_CN' ? 'en_US' : 'zh_CN';
-        dispatch(setLang(localLang));
+    const onClick = (lang) => {
+        dispatch(setLang(lang));
     }
 
+    const items = [
+        {
+            key: '0',
+            label: (
+                <Space>
+                    <span>🇺🇸</span>
+                    <span onClick={() => onClick('en_US')}>English</span>
+                </Space>
+            ),
+        },
+        {
+            key: '1',
+            label: (
+                <Space>
+                    <span>🇨🇳</span>
+                    <span onClick={() => onClick('zh_CN')}>简体中文</span>
+                </Space>
+            ),
+
+        }
+    ];
+
     return (
-        <Tooltip placement="bottom" title='中文/English'>
-            <div className='translation-container' onClick={onClick}>
+        <Dropdown menu={{items}}>
+            <div className='translation-container'>
                 <TranslationOutlined className='translation'/>
             </div>
-        </Tooltip>
+        </Dropdown>
     );
 }
 
