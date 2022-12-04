@@ -1,26 +1,7 @@
-import React, { useState } from 'react';
-import {  Switch, Table } from 'antd';
+import {   Table } from 'antd';
 import TableSpace from "@components/TableToolBar/index.jsx";
+import columns from "./columns";
 
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-        width: '12%',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        width: '30%',
-        key: 'address',
-    },
-];
 const data = [
     // {
     //     key: 1,
