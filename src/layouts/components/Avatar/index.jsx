@@ -1,7 +1,8 @@
 import {Dropdown, Avatar, Image, Space} from "antd";
-import {useAppDispatch,useAppSelector} from "@/app/hooks.js";
-import {logoutAsync,selectUser} from "@/app/reducers/user/UserReducer.js";
-import {UserOutlined,SettingOutlined,LogoutOutlined } from '@ant-design/icons';
+import {useAppDispatch, useAppSelector} from "@/app/hooks.js";
+import {logoutAsync, selectUser} from "@/app/reducers/user/UserReducer.js";
+import {UserOutlined, SettingOutlined, LogoutOutlined} from '@ant-design/icons';
+import {createDropdownItems} from "@utils/utils.js";
 import './index.scss';
 
 const CustomAvatar = () => {
@@ -13,38 +14,25 @@ const CustomAvatar = () => {
         dispatch(logoutAsync())
     }
 
-    const items = [
-        {
-            key: '0',
-            label: (
-                <Space>
-                    <UserOutlined/>
-                    <span>个人中心</span>
-                </Space>
-            ),
-        },
-        {
-            key: '1',
-            label: (
-                <Space>
-                    <SettingOutlined />
-                    <span>个人设置</span>
-                </Space>
-            ),
-        },
+    const items = createDropdownItems([
+        (<Space>
+            <UserOutlined/>
+            <span>个人中心</span>
+        </Space>),
+
+        (<Space>
+            <SettingOutlined/>
+            <span>个人设置</span>
+        </Space>),
         {
             type: 'divider',
         },
-        {
-            key: '2',
-            label: (
-                <Space>
-                    <LogoutOutlined />
-                    <span onClick={handelLogout}>退出登录</span>
-                </Space>
-            ),
-        },
-    ];
+        (<Space>
+            <LogoutOutlined/>
+            <span onClick={handelLogout}>退出登录</span>
+        </Space>),
+
+    ]);
 
     return (
         <Dropdown menu={{items}} placement='bottom'>

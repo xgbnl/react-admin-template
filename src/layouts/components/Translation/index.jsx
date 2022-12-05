@@ -3,6 +3,7 @@ import {Dropdown, Space} from "antd";
 import {useAppDispatch} from "@/app/hooks.js";
 import {setLang} from "@/app/reducers/app/AppReducer.js";
 import './index.scss';
+import {createDropdownItems} from "@utils/utils.js";
 
 const Translation = () => {
 
@@ -12,27 +13,16 @@ const Translation = () => {
         dispatch(setLang(lang));
     }
 
-    const items = [
-        {
-            key: '0',
-            label: (
-                <Space>
-                    <span>🇺🇸</span>
-                    <span onClick={() => onClick('en_US')}>English</span>
-                </Space>
-            ),
-        },
-        {
-            key: '1',
-            label: (
-                <Space>
-                    <span>🇨🇳</span>
-                    <span onClick={() => onClick('zh_CN')}>简体中文</span>
-                </Space>
-            ),
-
-        }
-    ];
+    const items = createDropdownItems([
+        (<Space>
+            <span>🇺🇸</span>
+            <span onClick={() => onClick('en_US')}>English</span>
+        </Space>),
+        (<Space>
+            <span>🇨🇳</span>
+            <span onClick={() => onClick('zh_CN')}>简体中文</span>
+        </Space>),
+    ]);
 
     return (
         <Dropdown menu={{items}}>
