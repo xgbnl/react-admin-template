@@ -1,71 +1,9 @@
-import {   Table } from 'antd';
+import {Table} from 'antd';
 import TableSpace from "@components/TableToolBar/index.jsx";
 import columns from "./columns";
-
-const data = [
-    // {
-    //     key: 1,
-    //     name: 'John Brown sr.',
-    //     age: 60,
-    //     address: 'New York No. 1 Lake Park',
-    //     children: [
-    //         {
-    //             key: 11,
-    //             name: 'John Brown',
-    //             age: 42,
-    //             address: 'New York No. 2 Lake Park',
-    //         },
-    //         {
-    //             key: 12,
-    //             name: 'John Brown jr.',
-    //             age: 30,
-    //             address: 'New York No. 3 Lake Park',
-    //             children: [
-    //                 {
-    //                     key: 121,
-    //                     name: 'Jimmy Brown',
-    //                     age: 16,
-    //                     address: 'New York No. 3 Lake Park',
-    //                 },
-    //             ],
-    //         },
-    //         {
-    //             key: 13,
-    //             name: 'Jim Green sr.',
-    //             age: 72,
-    //             address: 'London No. 1 Lake Park',
-    //             children: [
-    //                 {
-    //                     key: 131,
-    //                     name: 'Jim Green',
-    //                     age: 42,
-    //                     address: 'London No. 2 Lake Park',
-    //                     children: [
-    //                         {
-    //                             key: 1311,
-    //                             name: 'Jim Green jr.',
-    //                             age: 25,
-    //                             address: 'London No. 3 Lake Park',
-    //                         },
-    //                         {
-    //                             key: 1312,
-    //                             name: 'Jimmy Green sr.',
-    //                             age: 18,
-    //                             address: 'London No. 4 Lake Park',
-    //                         },
-    //                     ],
-    //                 },
-    //             ],
-    //         },
-    //     ],
-    // },
-    // {
-    //     key: 2,
-    //     name: 'Joe Black',
-    //     age: 32,
-    //     address: 'Sidney No. 1 Lake Park',
-    // },
-];
+import menuMock from "@/mock/menuMock.js";
+import {useEffect, useRef, useState} from "react";
+import {set} from "lodash/object.js";
 
 // rowSelection objects indicates the need for row selection
 const rowSelection = {
@@ -80,15 +18,21 @@ const rowSelection = {
     },
 };
 const Menu = () => {
+
+    const [tableSize, setTableSize] = useState('large');
+    const [tableBorder,setTableBorder] = useState(false);
+
     return (
         <>
-           <TableSpace/>
+            <TableSpace setTableSize={setTableSize} setTableBorder={setTableBorder} tableBorder={tableBorder}/>
             <Table
                 columns={columns}
                 rowSelection={{
                     ...rowSelection,
                 }}
-                dataSource={data}
+                dataSource={menuMock}
+                size={tableSize}
+                bordered={tableBorder}
             />
         </>
     );

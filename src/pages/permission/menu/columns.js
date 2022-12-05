@@ -3,7 +3,7 @@ export default [
         title: '菜单名称',
         dataIndex: 'title',
         align: 'center',
-        width: '20%',
+        width: '13%',
     },
     {
         title: '路径',
