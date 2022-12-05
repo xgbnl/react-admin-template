@@ -35,19 +35,19 @@ const constantRoutes = [
             {
                 path: 'user',
                 name: 'User',
-                meta: {title: '个人页',icon: ''},
+                meta: {title: '我的资料',icon: 'SmileOutlined'},
                 children:[
                     {
                         path: 'center',
                         name: 'Center',
                         element: load(Center),
-                        meta: {title: '个人中心',icon: ''},
+                        meta: {title: '个人中心',icon: 'UserOutlined'},
                     },
                     {
                         path: 'setting',
                         name: 'Setting',
                         element: load(Setting),
-                        meta: {title: '个人设置',icon: ''},
+                        meta: {title: '个人设置',icon: 'SettingOutlined'},
                     }
                 ]
             },
