@@ -14,6 +14,9 @@ const allowList = [
     'Dashboard',
     'Authority',
     'NotFound',
+    'User',
+    'Center',
+    'Setting'
 ];
 
 const allRoutes = cloneDeep(assignRoute(constantRoutes, asyncRoutes));
