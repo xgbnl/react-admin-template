@@ -1,4 +1,4 @@
-import {Space, Button, Tooltip} from "antd";
+import {Space, Button, Tooltip, Dropdown} from "antd";
 import {
     PlusOutlined,
     ReloadOutlined,
@@ -7,8 +7,9 @@ import {
 } from '@ant-design/icons';
 import './index.scss'
 import {useEffect, useState} from "react";
+import {createDropdownItems} from "@utils/utils.js";
 
-const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
+const TableToolBar = ({title = '编辑表格', space = 15, reloadFunc, setTableSize, tableBorder, setTableBorder}) => {
     const [settingSpin, setSettingSpin] = useState(false);
     const [reloadSpin, setReloadSpin] = useState(false);
     const [styles, setStyles] = useState({
@@ -19,6 +20,7 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
 
     const [action, setAction] = useState('');
 
+    // 监听鼠标hover变更图标般色
     useEffect(() => {
         if (action.length) {
 
@@ -39,6 +41,7 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
 
     }, [action])
 
+    // 旋转图标
     const onMouse = (action) => {
         setAction(action);
 
@@ -51,11 +54,22 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
         }
     }
 
+    // dropdown items
+    const tableDensityItems = createDropdownItems([
+        (<span onClick={() => setTableSize('large')}>默认</span>),
+        (<span onClick={() => setTableSize('middle')}>中等</span>),
+        (<span onClick={() => setTableSize('small')}>紧密</span>),
+    ]);
+
+    const tableSettingItems = createDropdownItems([
+        (<span onClick={() => setTableBorder(!tableBorder)}>显示边框</span>)
+    ])
+
     return (
         <div className='ant-table-toolbar'>
             <div className='ant-table-toolbar-container'>
                 <div className='ant-table-toolbar-left'>
-                    <div className='ant-table-toolbar-left-item'>{menuName}</div>
+                    <div className='ant-table-toolbar-left-item'>{title}</div>
                 </div>
                 <div className='ant-table-toolbar-right'>
                     <Space size={space}>
@@ -71,16 +85,22 @@ const TableToolBar = ({menuName = '编辑表格', space = 15, reloadFunc}) => {
                             </Tooltip>
                             <Tooltip placement="top" title='表格密度'>
                                 <div className='space-item'>
-                                    <ColumnHeightOutlined style={styles.column}
-                                                          onMouseEnter={() => onMouse('columnEnter')}
-                                                          onMouseLeave={() => onMouse('columnLeave')}/>
+                                    <Dropdown menu={{items: tableDensityItems}} placement="bottom">
+                                        <ColumnHeightOutlined
+                                            style={styles.column}
+                                            onMouseEnter={() => onMouse('columnEnter')}
+                                            onMouseLeave={() => onMouse('columnLeave')}/>
+                                    </Dropdown>
                                 </div>
                             </Tooltip>
                             <Tooltip placement="top" title='列设置'>
                                 <div className='space-item'>
-                                    <SettingOutlined spin={settingSpin} style={styles.setting}
-                                                     onMouseEnter={() => onMouse('settingEnter')}
-                                                     onMouseLeave={() => onMouse('settingLeave')}/>
+                                    <Dropdown menu={{items: tableSettingItems}} placement="bottom">
+
+                                        <SettingOutlined spin={settingSpin} style={styles.setting}
+                                                         onMouseEnter={() => onMouse('settingEnter')}
+                                                         onMouseLeave={() => onMouse('settingLeave')}/>
+                                    </Dropdown>
                                 </div>
                             </Tooltip>
                         </Space>
