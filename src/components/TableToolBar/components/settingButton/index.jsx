@@ -5,10 +5,24 @@ import {
     VerticalAlignMiddleOutlined,
     VerticalAlignBottomOutlined,
 } from "@ant-design/icons";
-import {createDropdownItems, getArrayElementIndex, pushToShift} from "@utils/utils.js";
+import {createDropdownItems} from "@utils/utils.js";
 import {useEffect, useState} from "react";
 import {cloneDeep} from "lodash/lang.js";
 import './index.scss';
+
+const getArrayElementIndex = (haystack, property, needle) => {
+    return haystack.indexOf(haystack.filter(item => item[property] === needle)[0])
+}
+
+const customUnShift = (haystack, index) => {
+    haystack.unshift(haystack.splice(index, 1)[0]);
+    return haystack;
+}
+
+const customPush = (haystack, index) => {
+    haystack.push(haystack.splice(index, 1)[0]);
+    return haystack;
+}
 
 const SettingButton = ({columns, setColumns}) => {
 
@@ -23,16 +37,25 @@ const SettingButton = ({columns, setColumns}) => {
         setSpin(!spin);
     }
 
+    const resetColumns = () => {
+        setColumns(readColumns);
+    }
+
     const handelColumnFixed = (key, fixed) => {
+
+        if (fixed === 'unset') {
+            resetColumns();
+            return false;
+        }
+
         let cloneColumns = cloneDeep(readColumns);
 
         const column = cloneColumns.find(column => column.dataIndex === key);
-
         Object.assign(column, {fixed});
 
         const index = getArrayElementIndex(cloneColumns, 'dataIndex', key);
-        cloneColumns = pushToShift(cloneColumns, index);
 
+        cloneColumns = fixed === 'left' ? customUnShift(cloneColumns, index) : customPush(cloneColumns, index);
         setColumns(cloneColumns);
     }
 
@@ -45,7 +68,7 @@ const SettingButton = ({columns, setColumns}) => {
         }
 
         const fixedStatus = {
-            cancelFixed: {title: '取消固定', column: column, fixed: 'left', icon: VerticalAlignMiddleOutlined},
+            cancelFixed: {title: '取消固定', column: column, fixed: 'unset', icon: VerticalAlignMiddleOutlined},
             leftFixed: {title: '固定在列首', column: column, fixed: 'left', icon: VerticalAlignTopOutlined},
             rightFixed: {title: '固定在列尾', column: column, fixed: 'right', icon: VerticalAlignBottomOutlined},
         };
@@ -69,10 +92,6 @@ const SettingButton = ({columns, setColumns}) => {
             {renderComponent(column)}
         </Space>
     ));
-
-    const resetColumns = () => {
-        setColumns(readColumns);
-    }
 
     dropdowns.unshift(...[
         (<Space>
