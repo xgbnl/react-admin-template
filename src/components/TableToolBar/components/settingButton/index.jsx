@@ -10,20 +10,10 @@ import {useEffect, useState} from "react";
 import {cloneDeep} from "lodash/lang.js";
 import './index.scss';
 
-const createStyles = (columns) => {
-    const dropdownStyles = {};
-    for (const column of columns) {
-        dropdownStyles[column.dataIndex] = {visibility: 'hidden', color: '#167fff'};
-    }
-    return dropdownStyles;
-}
-
 const SettingButton = ({columns, setColumns}) => {
 
     const [spin, setSpin] = useState(false);
     const [readColumns, setReadColumns] = useState(columns);
-
-    const [dropdownStyles, setDropdownStyles] = useState(cloneDeep(createStyles(columns)));
 
     useEffect(() => {
         setReadColumns(readColumns);
@@ -46,37 +36,11 @@ const SettingButton = ({columns, setColumns}) => {
         setColumns(cloneColumns);
     }
 
-    const handelDropdownHoverColor = (index) => {
-        const clone = cloneDeep(dropdownStyles);
-        const value = clone[index].visibility;
-
-        console.log('current')
-        console.log(index)
-        console.log('current value')
-        console.log(value)
-        clone[index].visibility = value === 'visible' ? 'hidden' : 'visible';
-
-        console.log('change')
-        console.log(clone)
-
-
-        // console.log('before')
-        // console.log(dropdownStyles);
-        // console.log('after');
-        // console.log(clone)
-
-        setDropdownStyles(clone);
-    }
-
     // render dropdown items.
     const renderComponent = (column) => {
         const make = (title, column, fixed, Icon, key) => {
             return (<Tooltip placement="bottom" title={title} key={key}>
-                <Icon
-                    className='antd-icon-class'
-                    onClick={() => handelColumnFixed(column.dataIndex, fixed)}
-                    style={dropdownStyles[column.dataIndex]}
-                />
+                <Icon className='antd-icon-class' onClick={() => handelColumnFixed(column.dataIndex, fixed)}/>
             </Tooltip>)
         }
 
@@ -100,11 +64,7 @@ const SettingButton = ({columns, setColumns}) => {
     }
 
     const dropdowns = columns.map((column) => (
-        <Space
-            className='antd-space-class'
-            onMouseEnter={() => handelDropdownHoverColor(column.dataIndex)}
-            onMouseLeave={() => handelDropdownHoverColor(column.dataIndex)}
-        >
+        <Space className='antd-space-class'>
             <span>{column.title}</span>
             {renderComponent(column)}
         </Space>
@@ -122,16 +82,13 @@ const SettingButton = ({columns, setColumns}) => {
         {type: 'divider'},
     ]);
 
-    const dropdownItems = createDropdownItems(dropdowns);
-
     return (
         <Tooltip placement="top" title='列设置'>
             <div className='space-item'>
-                <Dropdown menu={{items: dropdownItems}} placement="bottom">
+                <Dropdown menu={{items: createDropdownItems(dropdowns)}} placement="bottom">
                     <SettingOutlined className='antd-action-class' spin={spin}
                                      onMouseEnter={setSettingIcon}
                                      onMouseLeave={setSettingIcon}/>
-
                 </Dropdown>
             </div>
         </Tooltip>

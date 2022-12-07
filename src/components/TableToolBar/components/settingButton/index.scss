@@ -1,0 +1,12 @@
+.antd-space-class {
+  .antd-icon-class {
+    visibility: hidden;
+    color: #167fff;
+  }
+
+  &:hover {
+    .antd-icon-class {
+      visibility: visible;
+    }
+  }
+}
