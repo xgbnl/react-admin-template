@@ -3,7 +3,6 @@ import TableSpace from "@components/TableToolBar/index.jsx";
 import columnsData from "./columns";
 import menuMock from "@/mock/menuMock.js";
 import {useEffect, useRef, useState} from "react";
-import {set} from "lodash/object.js";
 
 // rowSelection objects indicates the need for row selection
 const rowSelection = {
