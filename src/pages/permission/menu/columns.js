@@ -16,7 +16,6 @@ export default [
         dataIndex: 'element',
         align: 'center',
         width: '12%',
-
     },
     {
         title: '权限值',

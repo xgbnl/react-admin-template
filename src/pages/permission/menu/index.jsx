@@ -1,6 +1,6 @@
 import {Table} from 'antd';
 import TableSpace from "@components/TableToolBar/index.jsx";
-import columns from "./columns";
+import columnsData from "./columns";
 import menuMock from "@/mock/menuMock.js";
 import {useEffect, useRef, useState} from "react";
 import {set} from "lodash/object.js";
@@ -20,11 +20,23 @@ const rowSelection = {
 const Menu = () => {
 
     const [tableSize, setTableSize] = useState('large');
-    const [tableBorder,setTableBorder] = useState(false);
+    const [tableBorder, setTableBorder] = useState(false);
+    const [columns, setColumns] = useState(columnsData);
+
+    useEffect(() => {
+        setColumns(columnsData);
+    }, [columnsData])
 
     return (
         <>
-            <TableSpace setTableSize={setTableSize} setTableBorder={setTableBorder} tableBorder={tableBorder}/>
+            <TableSpace
+                title='菜单管理'
+                setSize={setTableSize}
+                setBordered={setTableBorder}
+                bordered={tableBorder}
+                columns={columns}
+                setColumns={setColumns}
+            />
             <Table
                 columns={columns}
                 rowSelection={{
@@ -32,6 +44,7 @@ const Menu = () => {
                 }}
                 dataSource={menuMock}
                 size={tableSize}
+                scroll={{ x: 1300 }}
                 bordered={tableBorder}
             />
         </>

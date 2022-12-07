@@ -5,8 +5,9 @@ import {
     VerticalAlignMiddleOutlined,
     VerticalAlignBottomOutlined,
 } from "@ant-design/icons";
-import {createDropdownItems} from "@utils/utils.js";
+import {createDropdownItems, getArrayElementIndex, pushToShift} from "@utils/utils.js";
 import {useEffect, useState} from "react";
+import {cloneDeep} from "lodash/lang.js";
 
 const createStyles = (columns) => {
     const dropdownStyles = {};
@@ -20,7 +21,7 @@ const SettingButton = ({columns, setColumns}) => {
 
     const [spin, setSpin] = useState(false);
     const [color, setColor] = useState('');
-    const [bakColumns, setBakColumns] = useState(columns);
+    const [readColumns, setReadColumns] = useState(columns);
 
     const [dropdownStyles, setDropdownStyles] = useState(createStyles(columns));
 
@@ -30,20 +31,58 @@ const SettingButton = ({columns, setColumns}) => {
     }
 
     useEffect(() => {
-        setBakColumns(bakColumns);
+        setReadColumns(readColumns);
     }, [columns])
 
+    const handelColumnFixed = (key, fixed) => {
+        let cloneColumns = cloneDeep(readColumns);
 
-    const dropdownClick = (key) => {
-        console.log(key)
+        const column = cloneColumns.find(column => column.dataIndex === key);
+
+        Object.assign(column, {fixed});
+
+        const index = getArrayElementIndex(cloneColumns, 'dataIndex', key);
+        cloneColumns = pushToShift(cloneColumns, index);
+
+        setColumns(cloneColumns);
     }
 
     const handelDropdownMouse = (index) => {
         const clone = JSON.parse(JSON.stringify(dropdownStyles));
         const value = clone[index].visibility;
-
         clone[index].visibility = value === 'visible' ? 'hidden' : 'visible';
         setDropdownStyles(clone);
+    }
+
+    const createComponent = (title, column, fixed,Component) => {
+        return (<Tooltip placement="bottom" title={title}>
+            <Component
+                onClick={() => handelColumnFixed(column.dataIndex, fixed)}
+                style={dropdownStyles[column.dataIndex]}
+            />
+        </Tooltip>)
+    }
+
+    const render = (column) => {
+
+        if (column.fixed) {
+            if (column.fixed === 'left') {
+                return[
+                    createComponent('取消固定',column,'left',VerticalAlignMiddleOutlined),
+                    createComponent('固定在列尾',column,'right',VerticalAlignTopOutlined)
+                ];
+            }
+
+            return[
+                createComponent('固定在列首',column,'left',VerticalAlignMiddleOutlined),
+                createComponent('取消固定',column,'right',VerticalAlignMiddleOutlined)
+            ];
+        }
+
+         return [
+             createComponent('固定在列首',column,'left',VerticalAlignTopOutlined),
+             createComponent('固定在列尾',column,'right',VerticalAlignTopOutlined)
+         ];
     }
 
     const dropdowns = columns.map(column => (
@@ -51,14 +90,22 @@ const SettingButton = ({columns, setColumns}) => {
             onMouseEnter={() => handelDropdownMouse(column.dataIndex)}
             onMouseLeave={() => handelDropdownMouse(column.dataIndex)}
         >
-                <span
-                    onClick={() => dropdownClick(column.dataIndex)}
-
-                >{column.title}</span>
-            <VerticalAlignTopOutlined style={dropdownStyles[column.dataIndex]}/>
-            <VerticalAlignBottomOutlined style={dropdownStyles[column.dataIndex]}/>
+            <span>{column.title}</span>
+            {render(column)}
         </Space>
     ));
+
+    const resetColumns = () => {
+        setColumns(readColumns);
+    }
+
+    dropdowns.unshift(...[
+        (<Space>
+            <span>列设置</span>
+            <a onClick={resetColumns}>重置</a>
+        </Space>),
+        {type: 'divider'},
+    ]);
 
     const dropdownItems = createDropdownItems(dropdowns);
 
