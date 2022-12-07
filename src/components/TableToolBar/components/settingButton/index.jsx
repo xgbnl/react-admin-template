@@ -8,6 +8,7 @@ import {
 import {createDropdownItems, getArrayElementIndex, pushToShift} from "@utils/utils.js";
 import {useEffect, useState} from "react";
 import {cloneDeep} from "lodash/lang.js";
+import './index.scss';
 
 const createStyles = (columns) => {
     const dropdownStyles = {};
@@ -20,7 +21,6 @@ const createStyles = (columns) => {
 const SettingButton = ({columns, setColumns}) => {
 
     const [spin, setSpin] = useState(false);
-    const [color, setColor] = useState('');
     const [readColumns, setReadColumns] = useState(columns);
 
     const [dropdownStyles, setDropdownStyles] = useState(cloneDeep(createStyles(columns)));
@@ -29,9 +29,8 @@ const SettingButton = ({columns, setColumns}) => {
         setReadColumns(readColumns);
     }, [columns])
 
-    const onMouseEvent = () => {
+    const setSettingIcon = () => {
         setSpin(!spin);
-        setColor(color.length ? '' : '#167fff');
     }
 
     const handelColumnFixed = (key, fixed) => {
@@ -47,7 +46,7 @@ const SettingButton = ({columns, setColumns}) => {
         setColumns(cloneColumns);
     }
 
-    const handelDropdownMouse = (index) => {
+    const handelDropdownHoverColor = (index) => {
         const clone = cloneDeep(dropdownStyles);
         const value = clone[index].visibility;
 
@@ -71,9 +70,10 @@ const SettingButton = ({columns, setColumns}) => {
 
     // render dropdown items.
     const renderComponent = (column) => {
-        const make = (title, column, fixed, Icon,key) => {
+        const make = (title, column, fixed, Icon, key) => {
             return (<Tooltip placement="bottom" title={title} key={key}>
                 <Icon
+                    className='antd-icon-class'
                     onClick={() => handelColumnFixed(column.dataIndex, fixed)}
                     style={dropdownStyles[column.dataIndex]}
                 />
@@ -87,7 +87,7 @@ const SettingButton = ({columns, setColumns}) => {
         };
 
         const factory = (fixedStatus) => {
-            return fixedStatus.map((item,index) => make(item.title, item.column, item.fixed, item.icon,index));
+            return fixedStatus.map((item, index) => make(item.title, item.column, item.fixed, item.icon, index));
         }
 
         if (!column.fixed) {
@@ -101,8 +101,9 @@ const SettingButton = ({columns, setColumns}) => {
 
     const dropdowns = columns.map((column) => (
         <Space
-            onMouseEnter={() => handelDropdownMouse(column.dataIndex)}
-            onMouseLeave={() => handelDropdownMouse(column.dataIndex)}
+            className='antd-space-class'
+            onMouseEnter={() => handelDropdownHoverColor(column.dataIndex)}
+            onMouseLeave={() => handelDropdownHoverColor(column.dataIndex)}
         >
             <span>{column.title}</span>
             {renderComponent(column)}
@@ -127,9 +128,10 @@ const SettingButton = ({columns, setColumns}) => {
         <Tooltip placement="top" title='列设置'>
             <div className='space-item'>
                 <Dropdown menu={{items: dropdownItems}} placement="bottom">
-                    <SettingOutlined spin={spin} style={{color}}
-                                     onMouseEnter={onMouseEvent}
-                                     onMouseLeave={onMouseEvent}/>
+                    <SettingOutlined className='antd-action-class' spin={spin}
+                                     onMouseEnter={setSettingIcon}
+                                     onMouseLeave={setSettingIcon}/>
+
                 </Dropdown>
             </div>
         </Tooltip>
