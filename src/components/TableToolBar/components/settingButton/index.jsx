@@ -33,7 +33,7 @@ const SettingButton = ({columns, setColumns}) => {
         setReadColumns(readColumns);
     }, [columns])
 
-    const setSettingIcon = () => {
+    const setIconSpin = () => {
         setSpin(!spin);
     }
 
@@ -104,10 +104,10 @@ const SettingButton = ({columns, setColumns}) => {
     return (
         <Tooltip placement="top" title='列设置'>
             <div className='space-item'>
-                <Dropdown menu={{items: createDropdownItems(dropdowns)}} placement="bottom">
+                <Dropdown menu={{items: createDropdownItems(dropdowns)}} placement="bottom" trigger='click'>
                     <SettingOutlined className='antd-action-class' spin={spin}
-                                     onMouseEnter={setSettingIcon}
-                                     onMouseLeave={setSettingIcon}/>
+                                     onMouseEnter={setIconSpin}
+                                     onMouseLeave={setIconSpin}/>
                 </Dropdown>
             </div>
         </Tooltip>

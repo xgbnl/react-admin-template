@@ -12,7 +12,7 @@ const DensityButton = ({setSize}) => {
 
     return (
         <Tooltip placement="top" title='表格密度'>
-            <Dropdown menu={{items: dropdownItems}} placement="bottom">
+            <Dropdown menu={{items: dropdownItems}} placement="bottom" trigger='click'>
                 <ColumnHeightOutlined className='antd-action-class'/>
             </Dropdown>
         </Tooltip>
