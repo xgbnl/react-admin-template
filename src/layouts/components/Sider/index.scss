@@ -11,14 +11,14 @@
 }
 
 .ant-menu-root {
-  .ant-menu-item,.ant-menu-submenu-title {
+  .ant-menu-item, .ant-menu-submenu-title {
     padding-left: 20px !important;
   }
 }
 
 .ant-menu-inline-collapsed {
-  .ant-menu-item,.ant-menu-submenu-title {
-    padding-left: 16px !important;
+  .ant-menu-item, .ant-menu-submenu-title {
+    padding-left: 13px !important;
   }
 }
 
@@ -26,5 +26,11 @@
   .ant-menu-item {
     padding-left: 40px !important;
   }
+}
+
+.ant-layout-sider-trigger {
+  display: flex;
+  justify-content: start;
+  padding-left: 17px;
 }
 
