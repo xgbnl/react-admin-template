@@ -7,22 +7,26 @@ import Breadcrumb from '../Breadcrumb';
 import {Outlet} from 'react-router-dom';
 import {useSideBarRoutes} from "@/router/module/permission.jsx";
 import AntdDrawer from "../Drawer/index.jsx";
+import {useAppSelector} from "@/app/hooks.js";
+import {selectSetting} from "@/app/reducers/setting/settingReducer.js";
 
 const CustomLayout = () => {
 
     const routes = useSideBarRoutes();
 
+    const storeSetting = useAppSelector(selectSetting);
+
     return (
         <Layout style={{height: '100vh'}}>
-            <SideBar routes={routes}/>
+            <SideBar routes={routes} storeSetting={storeSetting}/>
             <Layout>
-                <CustomHeader/>
+                <CustomHeader storeSetting={storeSetting}/>
                 <Breadcrumb routes={routes}/>
                 <CustomContent>
                     <Outlet/>
-                    <AntdDrawer/>
+                    <AntdDrawer storeSetting={storeSetting}/>
                 </CustomContent>
-                <CustomFooter/>
+                <CustomFooter storeSetting={storeSetting}/>
             </Layout>
         </Layout>
     );

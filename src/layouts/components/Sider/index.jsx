@@ -1,5 +1,5 @@
 import {Layout} from "antd";
-import { useState} from "react";
+import {useState} from "react";
 import Trigger from "@/layouts/components/Trigger/index.jsx";
 import Logo from "@/layouts/components/Logo/index.jsx";
 import CustomMenu from "@/layouts/components/Menu/index.jsx";
@@ -9,7 +9,7 @@ import './index.scss'
 
 const {Sider} = Layout;
 
-const SideBar = ({routes}) => {
+const SideBar = ({routes, storeSetting}) => {
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -17,19 +17,20 @@ const SideBar = ({routes}) => {
         setCollapsed(collapsed);
     }
 
-    return (
-        <Sider
+    return !storeSetting.showSideBar
+        ? <></>
+        : (<Sider
             collapsible
             collapsed={collapsed}
             onCollapse={onCollapse}
-            theme={settings.sideBarTheme}
+            theme={storeSetting.sideBarTheme}
             collapsedWidth={48}
-            trigger={<Trigger collapsed={collapsed} theme={settings.sideBarTheme}/>}
+            trigger={storeSetting.fixedSideBar ? null :
+                <Trigger collapsed={collapsed} theme={storeSetting.sideBarTheme}/>}
         >
-            <Logo logo={settings.logo} title={settings.title} collapsed={collapsed}/>
-            <CustomMenu theme={settings.sideBarTheme} routes={routes}/>
-        </Sider>
-    );
+            <Logo storeSetting={storeSetting} logo={settings.logo} title={settings.title} collapsed={collapsed}/>
+            <CustomMenu theme={storeSetting.sideBarTheme} routes={routes} storeSetting={storeSetting}/>
+        </Sider>);
 }
 
 export default SideBar;

@@ -1,14 +1,13 @@
 import './index.scss';
 
-const Logo = ({logo, title, collapsed}) => {
+const Logo = ({logo, title, collapsed, storeSetting}) => {
 
-    return (
-        <div className="logo-wrap">
+    return storeSetting.showLogo
+        ? (<div className="logo-wrap">
             <img className={collapsed ? 'collapsedLogo' : ''} src={logo} alt="logo"/>
             <h1 style={{display: collapsed ? 'none' : 'block'}}>{title}</h1>
-        </div>
-    );
-
+        </div>)
+        : <></>;
 }
 
 export default Logo;

@@ -1,6 +1,6 @@
 import logo from '@assets/images/logo.svg';
 
-const settings = {
+export default {
 
     // 侧边栏标题
     title: 'Ant Design Pro',
@@ -11,11 +11,30 @@ const settings = {
     // 脚部信息
     footer: 'Ant Design ©2018 Created by Ant UED',
 
-    // 侧边栏主题
-    sideBarTheme: 'dark', // light dark
+    // 该属性与全局redux绑定
+    status: {
+        // 侧边栏主题
+        sideBarTheme: 'dark', // light dark
 
-    // 侧边栏菜单样式
-    menuStyle: 'circle' // 正方形[square] 圆形边角[circle]
+        // 侧边栏菜单样式
+        menuStyle: 'circle',// 正方形[square] 圆形边角[circle]
+
+        // 固定头
+        fixedHeader: false,
+
+        // 固定菜单
+        fixedSideBar: false,
+
+        // 展示头部
+        showHeader: true,
+
+        // 展示页脚
+        showFooter: true,
+
+        // 展示侧边栏
+        showSideBar: true,
+
+        // 展示Logo
+        showLogo: true,
+    }
 };
-
-export default settings;

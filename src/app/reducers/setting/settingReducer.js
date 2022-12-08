@@ -1,15 +1,22 @@
 import {createSlice} from "@reduxjs/toolkit";
 import settings from "@/settings.js";
 
-const create = () => {
+const initData = () => {
     const states = {};
-    Object.keys(settings.status).forEach(item => {
-        states[item] = localStorage.getItem(item) || settings.status[item];
-    })
+    let local = null;
+    for (const item of Object.keys(settings.status)) {
+        local = localStorage.getItem(item);
+
+        if ((local === "true" || local === "false")) {
+            states[item] = JSON.parse(local);
+            continue;
+        }
+        states[item] = local ?? settings.status[item];
+    }
     return states;
 }
 
-const initialState = create();
+const initialState = initData();
 
 export const SettingReducer = createSlice({
     name: 'setting',

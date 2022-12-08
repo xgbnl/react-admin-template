@@ -5,17 +5,20 @@ import './index.scss';
 
 const {Header} = Layout;
 
-const CustomHeader = () => {
-    return (
-        <Header>
+const CustomHeader = ({storeSetting}) => {
+
+    const style = {position: 'sticky', top: 0, zIndex: 1, width: '100%'};
+
+    return !storeSetting.showHeader
+        ? <></>
+        : (<Header style={storeSetting.fixedHeader ? style : {}}>
             <div className="ant-header-container">
                 <Space size={8}>
                     <CustomAvatar/>
                     <Translation/>
                 </Space>
             </div>
-        </Header>
-    );
+        </Header>);
 }
 
 export default CustomHeader;

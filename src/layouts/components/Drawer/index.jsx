@@ -4,7 +4,7 @@ import {useState} from "react";
 import DrawerContent from "./components/content/index.jsx";
 import './index.scss';
 
-const AntdDrawer = () => {
+const AntdDrawer = ({storeSetting}) => {
     const [open, setOpen] = useState(false);
     const [closable] = useState(false);
     const [drawerVisible] = useState(true);
@@ -24,7 +24,7 @@ const AntdDrawer = () => {
             <div className='handel' onClick={showDrawer}>
                 {open ? <CloseOutlined className='handel-icon'/> : <SettingFilled className='handel-icon'/>}
             </div>
-            <DrawerContent/>
+            <DrawerContent storeSetting={storeSetting}/>
         </Drawer>
     );
 }

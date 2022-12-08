@@ -22,19 +22,19 @@ export default [
         items: [
             {
                 label: '顶栏',
-                key: 'header',
+                key: 'showHeader',
             },
             {
                 label: '页脚',
-                key: 'footer',
+                key: 'showFooter',
             },
             {
                 label: '菜单',
-                key: 'menu',
+                key: 'showSideBar',
             },
             {
                 label: '菜单头',
-                key: 'logo'
+                key: 'showLogo'
             }
         ],
     }

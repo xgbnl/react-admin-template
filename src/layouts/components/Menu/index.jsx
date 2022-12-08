@@ -34,7 +34,7 @@ const menuTheme = {
     },
 }
 
-const CustomMenu = ({theme, routes}) => {
+const CustomMenu = ({theme, routes,storeSetting}) => {
     const [openKeys, setOpenKeys] = useState([]);
     const [selectedKeys, setSelectdKeys] = useState([]);
 
@@ -74,11 +74,6 @@ const CustomMenu = ({theme, routes}) => {
     }).filter(Boolean);
 
     const handleMenuClick = ({key}) => {
-
-        // const title = document.title;
-        // const label = menuMaps[key].label ?? '';
-        //
-        // document.title = `${title}-${label}`
         navigate(key);
     }
 
@@ -94,7 +89,7 @@ const CustomMenu = ({theme, routes}) => {
     }
 
     return (
-        settings.menuStyle === 'circle'
+        storeSetting.menuStyle === 'circle'
             ? <Menu items={menuItems}
                     theme={theme}
                     onClick={handleMenuClick}
