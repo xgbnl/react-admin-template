@@ -6,7 +6,7 @@ import CustomContent from '../Content';
 import Breadcrumb from '../Breadcrumb';
 import {Outlet} from 'react-router-dom';
 import {useSideBarRoutes} from "@/router/module/permission.jsx";
-import AntdDrawer from "../FloatButton/index.jsx";
+import AntdDrawer from "../Drawer/index.jsx";
 
 const CustomLayout = () => {
 
