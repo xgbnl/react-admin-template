@@ -37,6 +37,13 @@
 .antd-side-class {
   .ant-layout-sider-trigger {
     border-top: 1px solid rgba(0, 0, 0, .06);
+    width: 199px !important;
+  }
+}
+
+.ant-layout-sider-collapsed {
+  .ant-layout-sider-trigger {
+    width: 47px !important;
   }
 }
 
