@@ -18,7 +18,7 @@
 
 .ant-menu-inline-collapsed {
   .ant-menu-item, .ant-menu-submenu-title {
-    padding-left: 13px !important;
+    padding-left: 12px !important;
   }
 }
 
@@ -32,5 +32,11 @@
   display: flex;
   justify-content: start;
   padding-left: 17px;
+}
+
+.antd-side-class {
+  .ant-layout-sider-trigger {
+    border-top: 1px solid rgba(0, 0, 0, .06);
+  }
 }
 

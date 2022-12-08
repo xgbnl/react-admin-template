@@ -25,8 +25,10 @@ const SideBar = ({routes, storeSetting}) => {
             onCollapse={onCollapse}
             theme={storeSetting.sideBarTheme}
             collapsedWidth={48}
-            trigger={storeSetting.fixedSideBar ? null :
-                <Trigger collapsed={collapsed} theme={storeSetting.sideBarTheme}/>}
+            className={storeSetting.sideBarTheme === 'light' ? 'antd-side-class' : ''}
+            trigger={storeSetting.fixedSideBar
+                ? null
+                : <Trigger className='antd-trigger-class' collapsed={collapsed} theme={storeSetting.sideBarTheme}/>}
         >
             <Logo storeSetting={storeSetting} logo={settings.logo} title={settings.title} collapsed={collapsed}/>
             <CustomMenu theme={storeSetting.sideBarTheme} routes={routes} storeSetting={storeSetting}/>
