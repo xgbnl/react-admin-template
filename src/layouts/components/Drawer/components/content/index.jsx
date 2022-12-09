@@ -1,7 +1,7 @@
-import {Switch, Divider, List} from "antd";
-import groups from "./groups.js";
 import {useEffect, useState} from "react";
+import {Switch, Divider, List} from "antd";
 import {useAppDispatch} from "@/app/hooks.js";
+import groups from "./groups.js";
 import {setSettings} from "@/app/reducers/setting/settingReducer.js";
 
 const ListItem = List.Item;
@@ -33,8 +33,7 @@ const DrawerContent = ({storeSetting}) => {
                                     <Meta title={item.label}/>
                                     <Switch size='small' onClick={(value) => onSwitch(item, value)}
                                             checked={storeSetting[item.key]}/>
-                                </ListItem>)
-                            )
+                                </ListItem>))
                             : <></>}
                     </List>);
             })}
