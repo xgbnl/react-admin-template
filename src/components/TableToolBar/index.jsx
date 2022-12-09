@@ -6,18 +6,16 @@ import SettingButton from "./components/settingButton/index.jsx";
 import BorderedButton from "./components/borderedButton/index.jsx";
 import './index.scss'
 
-const TableToolBar = (props) => {
-
-    const {
-        title = '编辑表格',
-        space = 15,
-        onRefresh,
-        setSize,
-        bordered,
-        setBordered,
-        columns,
-        setColumns,
-    } = props;
+const TableToolBar = ({
+                          title = '编辑表格',
+                          space = 15,
+                          onRefresh,
+                          setSize,
+                          bordered,
+                          setBordered,
+                          columns,
+                          setColumns,
+                      }) => {
 
     return (
         <div className='ant-table-toolbar'>

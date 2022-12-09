@@ -32,10 +32,13 @@ const useAntDesign = () => {
 
     const modalVisible = false;
 
+    const tablePaginate = false;
+
     return {
         rules,
         antdMessage,
         modalVisible,
+        tablePaginate,
     };
 }
 
