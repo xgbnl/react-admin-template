@@ -9,7 +9,7 @@ const initialState = {
     avatar: '',
     routes: [],
     buttons: [],
-    notification: false,
+    notification: null,
 };
 
 // 登录

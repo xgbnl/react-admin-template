@@ -1,11 +1,12 @@
 import {forwardRef, useImperativeHandle, useMemo, createContext} from "react";
 import {notification} from 'antd';
 import {SmileTwoTone} from '@ant-design/icons';
+import {useAppDispatch, useAppSelector} from "@/app/hooks.js";
+import {selectUser, setNotification} from "@/app/reducers/user/UserReducer.js";
 
 const getTimeState = () => {
-    let timeNow = new Date();
-
-    let hours = timeNow.getHours();
+    const timeNow = new Date();
+    const hours = timeNow.getHours();
 
     let text = null;
 
@@ -29,17 +30,29 @@ const getTimeState = () => {
 
 const {useNotification} = notification;
 
-const Notification = forwardRef(({userName}, ref) => {
+const Notification = forwardRef((props, ref) => {
     const [api, contextHolder] = useNotification();
 
-    const contextValue = useMemo(() => ({name: userName,}), [],);
+    const user = useAppSelector(selectUser);
+
+    const contextValue = useMemo(() => ({name: user.name,}), []);
+
+    const dispatch = useAppDispatch();
+
+    const onClose = () => {
+        dispatch(setNotification(null));
+    }
+
     const openNotification = () => {
-        api.info({
-            message: getTimeState(),
-            description: <Context.Consumer>{({name}) => `欢迎回来, ${name}!`}</Context.Consumer>,
-            placement: 'topRight',
-            icon: <SmileTwoTone/>
-        });
+        if (user.notification) {
+            api.info({
+                message: getTimeState(),
+                description: <Context.Consumer>{({name}) => `欢迎回来, ${name}!`}</Context.Consumer>,
+                placement: 'topRight',
+                icon: <SmileTwoTone/>,
+                onClose,
+            });
+        }
     };
 
     useImperativeHandle(ref, () => ({
