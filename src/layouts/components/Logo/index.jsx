@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import './index.scss';
 
 const Logo = ({logo, title, collapsed, storeSetting}) => {
@@ -17,8 +18,13 @@ const Logo = ({logo, title, collapsed, storeSetting}) => {
 
     }, [collapsed, storeSetting.sideBarTheme])
 
+    const navigate = useNavigate();
+    const onClick = () => {
+        navigate('/dashboard');
+    }
+
     return storeSetting.showLogo
-        ? (<div className="logo-wrap">
+        ? (<div className="logo-wrap" onClick={onClick}>
             <img className={imgClassName} src={logo} alt="logo"/>
             <h1 style={style} className={titleClassName}>
                 {title}
