@@ -73,7 +73,7 @@ const DrawerContent = ({storeSetting}) => {
                                     <Meta title={item.label}/>
                                     {renderSwitch(item, storeSetting)}
                                 </ListItem>))
-                            : <></>}
+                            : null}
                     </List>);
             })}
         </div>

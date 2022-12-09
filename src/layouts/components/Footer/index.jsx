@@ -5,7 +5,7 @@ import settings from '@/settings';
 const {Footer} = Layout;
 
 const CustomFooter = ({storeSetting}) => {
-    return storeSetting.showFooter ? <Footer>{settings.footer}</Footer> : <></>;
+    return storeSetting.showFooter ? <Footer>{settings.footer}</Footer> : null;
 }
 
 export default CustomFooter;

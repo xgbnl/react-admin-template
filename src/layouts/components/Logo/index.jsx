@@ -30,7 +30,7 @@ const Logo = ({logo, title, collapsed, storeSetting}) => {
                 {title}
             </h1>
         </div>)
-        : <></>;
+        : null;
 }
 
 export default Logo;
