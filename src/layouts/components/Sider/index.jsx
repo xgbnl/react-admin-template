@@ -1,5 +1,5 @@
+import {useEffect, useState} from "react";
 import {Layout} from "antd";
-import {useState} from "react";
 import Trigger from "@/layouts/components/Trigger/index.jsx";
 import Logo from "@/layouts/components/Logo/index.jsx";
 import CustomMenu from "@/layouts/components/Menu/index.jsx";
@@ -13,6 +13,12 @@ const SideBar = ({routes, storeSetting}) => {
 
     const [collapsed, setCollapsed] = useState(false);
 
+    const [sideClassName, setSideClassName] = useState('');
+
+    useEffect(() => {
+        setSideClassName(storeSetting.sideBarTheme === 'light' ? 'antd-side-class' : '');
+    }, [storeSetting.sideBarTheme])
+
     const onCollapse = (collapsed) => {
         setCollapsed(collapsed);
     }
@@ -25,7 +31,7 @@ const SideBar = ({routes, storeSetting}) => {
             onCollapse={onCollapse}
             theme={storeSetting.sideBarTheme}
             collapsedWidth={48}
-            className={storeSetting.sideBarTheme === 'light' ? 'antd-side-class' : ''}
+            className={sideClassName}
             trigger={storeSetting.fixedSideBar
                 ? null
                 : <Trigger className='antd-trigger-class' collapsed={collapsed} theme={storeSetting.sideBarTheme}/>}
