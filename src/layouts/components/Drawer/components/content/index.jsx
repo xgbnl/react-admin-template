@@ -10,6 +10,7 @@ const Meta = List.Item.Meta;
 const DrawerContent = ({storeSetting}) => {
     const [groupItems, setGroupItems] = useState(groups);
     const [split] = useState(false);
+    const [size] = useState('small');
 
     useEffect(() => {
         setGroupItems(groups);
@@ -17,7 +18,46 @@ const DrawerContent = ({storeSetting}) => {
 
     const dispatch = useAppDispatch();
     const onSwitch = (item, value) => {
+
+        if (item.key === 'sideBarTheme') {
+            dispatch(setSettings({item: item.key, value: value ? 'dark' : 'light'}));
+            return false;
+        }
+
+        if (item.key === 'sideBarStyle') {
+            dispatch(setSettings({item: item.key, value: value ? 'circle' : 'square'}));
+            return false;
+        }
+
         dispatch(setSettings({item: item.key, value}))
+    }
+
+    const renderSwitch = (item, setting) => {
+        if (item.key === 'sideBarTheme') {
+            return (
+                <Switch size={size}
+                        onClick={(value) => onSwitch(item, value)}
+                        checked={setting[item.key] === 'dark'}
+                        checkedChildren="暗黑"
+                        unCheckedChildren="高亮"
+                />
+            );
+        }
+
+        if (item.key === 'sideBarStyle') {
+            return (
+                <Switch size={size}
+                        onClick={(value) => onSwitch(item, value)}
+                        checked={setting[item.key] === 'circle'}
+                        checkedChildren="圆角"
+                        unCheckedChildren="直角"
+                />
+            );
+        }
+
+        return (
+            <Switch size={size} onClick={(value) => onSwitch(item, value)} checked={setting[item.key]}/>
+        )
     }
 
     return (
@@ -31,8 +71,7 @@ const DrawerContent = ({storeSetting}) => {
                             ? group.items.map((item, idx) => (
                                 <ListItem key={idx}>
                                     <Meta title={item.label}/>
-                                    <Switch size='small' onClick={(value) => onSwitch(item, value)}
-                                            checked={storeSetting[item.key]}/>
+                                    {renderSwitch(item, storeSetting)}
                                 </ListItem>))
                             : <></>}
                     </List>);

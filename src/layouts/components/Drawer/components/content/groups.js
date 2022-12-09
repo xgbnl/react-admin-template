@@ -1,5 +1,22 @@
 export default [
     {
+        title: '主题',
+        type: 'content',
+        items: [
+            {
+                label: '侧边栏主题',
+                key: 'sideBarTheme',
+            },
+            {
+                label: '侧边栏样式',
+                key: 'sideBarStyle'
+            }
+        ],
+    },
+    {
+        type: 'divider',
+    },
+    {
         title: '导航区域',
         type: 'content',
         items: [

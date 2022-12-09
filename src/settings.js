@@ -17,7 +17,7 @@ export default {
         sideBarTheme: 'dark', // light dark
 
         // 侧边栏菜单样式
-        menuStyle: 'circle',// 正方形[square] 圆形边角[circle]
+        sideBarStyle: 'circle',// 正方形[square] 圆形边角[circle]
 
         // 固定头
         fixedHeader: false,

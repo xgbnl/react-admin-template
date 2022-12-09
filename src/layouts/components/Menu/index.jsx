@@ -89,7 +89,7 @@ const CustomMenu = ({theme, routes,storeSetting}) => {
     }
 
     return (
-        storeSetting.menuStyle === 'circle'
+        storeSetting.sideBarStyle === 'circle'
             ? <Menu items={menuItems}
                     theme={theme}
                     onClick={handleMenuClick}
