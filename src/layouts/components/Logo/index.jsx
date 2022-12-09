@@ -1,14 +1,26 @@
+import {useEffect, useState} from "react";
 import './index.scss';
 
 const Logo = ({logo, title, collapsed, storeSetting}) => {
 
+    const [imgClassName, setImgClassName] = useState('');
+    const [style, setStyle] = useState({});
+    const [titleClassName, setTitleClassName] = useState('');
+
+    useEffect(() => {
+
+        setImgClassName(collapsed ? 'collapsedLogo' : '')
+
+        setStyle({display: collapsed ? 'none' : 'block'})
+
+        setTitleClassName(storeSetting.sideBarTheme === 'light' ? 'antd-side-logo' : '')
+
+    }, [collapsed, storeSetting.sideBarTheme])
+
     return storeSetting.showLogo
         ? (<div className="logo-wrap">
-            <img className={collapsed ? 'collapsedLogo' : ''} src={logo} alt="logo"/>
-            <h1
-                style={{display: collapsed ? 'none' : 'block'}}
-                className={storeSetting.sideBarTheme === 'light' ? 'antd-side-logo' : ''}
-            >
+            <img className={imgClassName} src={logo} alt="logo"/>
+            <h1 style={style} className={titleClassName}>
                 {title}
             </h1>
         </div>)
