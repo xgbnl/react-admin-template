@@ -19,22 +19,7 @@ const makeIcon = (icon) => {
     return createElement(Icons[icon ? icon : 'AntDesignOutlined']);
 }
 
-const menuTheme = {
-    components: {
-        Menu: {
-            radiusItem: 0,
-            radiusSubMenuItem: 0,
-            colorItemTextHover: '#ffffff',
-            colorItemTextSelected: '#ffffffa6',
-            colorItemBgSelected: '#1677ff',
-            colorActiveBarWidth: 3,
-            itemMarginInline: 0,
-            colorItemBgHover: 'transparent',
-        },
-    },
-}
-
-const CustomMenu = ({theme, routes,storeSetting}) => {
+const CustomMenu = ({theme, routes, storeSetting}) => {
     const [openKeys, setOpenKeys] = useState([]);
     const [selectedKeys, setSelectdKeys] = useState([]);
 
@@ -86,6 +71,21 @@ const CustomMenu = ({theme, routes,storeSetting}) => {
         } else {
             setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
         }
+    }
+
+    const menuTheme = {
+        components: {
+            Menu: {
+                radiusItem: 0,
+                radiusSubMenuItem: 0,
+                colorItemTextHover: storeSetting.sideBarTheme === 'light' ? '#000000e0' : '#ffffff',
+                colorItemTextSelected: storeSetting.sideBarTheme === 'light' ? '#1890ff' : '#ffffffa6',
+                colorItemBgSelected: storeSetting.sideBarTheme === 'light' ? '#bae0ff' : '#1677ff',
+                colorActiveBarWidth: 3,
+                itemMarginInline: 0,
+                colorItemBgHover: 'transparent',
+            },
+        },
     }
 
     return (

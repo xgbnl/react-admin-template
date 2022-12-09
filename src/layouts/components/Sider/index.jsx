@@ -17,7 +17,7 @@ const SideBar = ({routes, storeSetting}) => {
 
     useEffect(() => {
         setSideClassName(storeSetting.sideBarTheme === 'light' ? 'antd-side-class' : '');
-    }, [storeSetting.sideBarTheme])
+    }, [storeSetting.sideBarTheme,storeSetting.sideBarStyle])
 
     const onCollapse = (collapsed) => {
         setCollapsed(collapsed);
