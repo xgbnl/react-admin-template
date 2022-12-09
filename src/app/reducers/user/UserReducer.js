@@ -9,6 +9,7 @@ const initialState = {
     avatar: '',
     routes: [],
     buttons: [],
+    notification: false,
 };
 
 // 登录
@@ -26,20 +27,24 @@ export const logoutAsync = createAsyncThunk(
 // 获取用户
 export const getUserAsync = createAsyncThunk(
     'user/getUserAsync',
-     () => getUser(),
+    () => getUser(),
 );
 
 export const userReducer = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        setNotification(state, action) {
+            state.notification = action.payload;
+        }
+    },
     extraReducers(builder) {
         builder.addCase(loginAsync.fulfilled, (state, action) => {
 
             const {scope} = action.payload.response;
             state.token = scope;
+            state.notification = true;
             setToken(scope);
-
         }).addCase(getUserAsync.fulfilled, (state, action) => {
 
             const {name, avatar, routes, buttons} = action.payload.response;
@@ -62,6 +67,8 @@ export const userReducer = createSlice({
 
 // 暴露reducer
 export default userReducer.reducer;
+
+export const {setNotification} = userReducer.actions;
 
 // 暴露用于读取当前状态数据的select函数
 export const selectUser = (state) => state.user;
