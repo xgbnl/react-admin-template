@@ -1,5 +1,6 @@
 import {Tag} from 'antd';
 import {makeIcon} from "@utils/utils.js";
+import TablePermissionButton from "@components/TablePermissionButton/index.jsx";
 
 export default [
     {
@@ -48,5 +49,11 @@ export default [
         dataIndex: 'action',
         align: 'center',
         width: '12%',
+        render:() => (
+            <TablePermissionButton
+                delAuthKey='permission.menu.delete'
+                editAuthKey='permission.menu.edit'
+            />
+        )
     },
 ];
