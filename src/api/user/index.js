@@ -28,6 +28,8 @@ export const getUser = () => {
         ],
         buttons: [
             'permission.menu.create',
+            'permission.menu.delete',
+            'permission.menu.edit',
         ],
     };
     return new Promise(resolve => resolve({response: re}))
