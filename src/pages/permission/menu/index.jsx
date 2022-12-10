@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import {Table} from 'antd';
-import TableToolBar from "@components/TableToolBar/index.jsx";
+import ToolBar from "@components/Table/ToolBar/index.jsx";
 import useAntDesign from "@/common/useAntDesign.js";
 import Paginate from "@components/Paginate/index.jsx";
 import {getMenus} from "@api/permission/menu/index.js";
 import columnsData from "./columns.jsx";
+import {createColumns} from "@components/Table/Column/index.js";
 
 const Menu = () => {
 
@@ -24,10 +25,26 @@ const Menu = () => {
         },
     };
 
-    // table tool bar
+    const onEdit = (column) => {
+        console.log(column)
+    }
+
+    const onDelete = (column) => {
+        console.log(column)
+    }
+
+    const tableColumns = createColumns({
+        columns: columnsData,
+        delAuthKey: 'permission.menu.delete',
+        editAuthKey: 'permission.menu.edit',
+        bindDelete: onDelete,
+        bindEdit: onEdit,
+    })
+
+    // table toolBar
     const [tableSize, setTableSize] = useState('large');
     const [tableBorder, setTableBorder] = useState(false);
-    const [columns, setColumns] = useState(columnsData);
+    const [columns, setColumns] = useState(tableColumns);
 
     // request
     const [current, setCurrent] = useState(1);
@@ -46,11 +63,11 @@ const Menu = () => {
     }
 
     useEffect(() => {
-        setColumns(columnsData);
+        setColumns(tableColumns);
         getMenuList();
     }, [columnsData, current, pageSize])
 
-    const {tablePaginate} = useAntDesign();
+    const {tablePaginate, antdModal, antdMessage} = useAntDesign();
 
     const onRefresh = () => {
         getMenuList();
@@ -61,12 +78,20 @@ const Menu = () => {
     }
 
     const onBatchDelete = () => {
-        console.log(rowData)
+
+        if (!rowData.length) {
+            antdMessage('请选择要删除的数据', 'error');
+            return false;
+        }
+
+        antdModal('xxx', () => {
+            console.log('我被执行了')
+        })
     }
 
     return (
         <>
-            <TableToolBar
+            <ToolBar
                 setSize={setTableSize}
                 setBordered={setTableBorder}
                 bordered={tableBorder}
