@@ -1,6 +1,5 @@
 import {Tag} from 'antd';
-import {createIcon} from "@utils/utils.js";
-import {DollarCircleTwoTone} from '@ant-design/icons';
+import {makeIcon} from "@utils/utils.js";
 
 export default [
     {
@@ -42,7 +41,7 @@ export default [
         dataIndex: 'icon',
         align: 'center',
         width: '12%',
-        render: (_, {icon}) => <DollarCircleTwoTone/>,
+        render: (_, {icon}) => makeIcon(icon),
     },
     {
         title: '操作',

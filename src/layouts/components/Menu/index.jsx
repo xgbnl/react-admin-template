@@ -1,7 +1,7 @@
 import {ConfigProvider, Menu} from "antd";
-import {createElement, useEffect, useState} from "react";
-import * as Icons from "@ant-design/icons";
+import { useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import {makeIcon} from "@utils/utils.js";
 import useCommon from "@/common/useCommon.js";
 import settings from "@/settings.js";
 
@@ -13,10 +13,6 @@ const getItem = (key, label, icon, children = null, type = '') => {
         icon,
         type,
     };
-}
-
-const makeIcon = (icon) => {
-    return createElement(Icons[icon ? icon : 'AntDesignOutlined']);
 }
 
 const CustomMenu = ({theme, routes, storeSetting}) => {
