@@ -25,6 +25,7 @@ export const getUser = () => {
             'Permission',
             'Role',
             'Menu',
+            'MenuCreate'
         ],
         buttons: [
             'permission.menu.create',
