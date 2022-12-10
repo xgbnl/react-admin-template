@@ -9,7 +9,7 @@ export default {
     logo: logo,
 
     // 脚部信息
-    footer: 'Ant Design ©2018 Created by Ant UED',
+    footer: 'Ant Design ©2022 Created by Ant UED',
 
     // 该属性与全局redux绑定
     status: {
