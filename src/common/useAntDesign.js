@@ -1,4 +1,4 @@
-import {message} from "antd";
+import {message, Modal} from "antd";
 
 const useAntDesign = () => {
 
@@ -30,6 +30,18 @@ const useAntDesign = () => {
         }
     }
 
+    /**
+     * ant 弹窗
+     * @param content
+     * @param callback
+     */
+    const antdModal = (content, callback) => {
+        Modal.warning({
+            title: '此操作不可控，可能造成数据无法找回！您确定要删除: [ ' + content + ' ]?',
+            onOk: callback,
+        })
+    }
+
     const modalVisible = false;
 
     const tablePaginate = false;
@@ -39,6 +51,7 @@ const useAntDesign = () => {
         antdMessage,
         modalVisible,
         tablePaginate,
+        antdModal,
     };
 }
 
