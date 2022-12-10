@@ -47,7 +47,7 @@ const Notification = forwardRef((props, ref) => {
         if (user.notification) {
             api.info({
                 message: getTimeState(),
-                description: <Context.Consumer>{({name}) => `欢迎回来, ${name}!`}</Context.Consumer>,
+                description: <Context.Consumer>{({name}) => `欢迎回来,${name}`}</Context.Consumer>,
                 placement: 'topRight',
                 icon: <SmileTwoTone/>,
                 onClose,
