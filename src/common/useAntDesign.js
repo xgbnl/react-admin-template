@@ -37,7 +37,7 @@ const useAntDesign = () => {
      */
     const antdModal = (content, callback) => {
         Modal.warning({
-            title: '此操作不可控，可能造成数据无法找回！您确定要删除: [ ' + content + ' ]?',
+            title: '此操作不可控，可能造成数据永久被删除！您确定要删除: [ ' + content + ' ]?',
             onOk: callback,
         })
     }
