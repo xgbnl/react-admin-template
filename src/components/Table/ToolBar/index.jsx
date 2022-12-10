@@ -8,7 +8,7 @@ import DeleteButton from "./components/DeleteButton/index.jsx";
 import Permission from "@components/Permission/index.jsx";
 import './index.scss'
 
-const TableToolBar = ({
+const ToolBar = ({
                           space = 15,
                           onRefresh,
                           setSize,
@@ -50,4 +50,4 @@ const TableToolBar = ({
     );
 }
 
-export default TableToolBar;
+export default ToolBar;
