@@ -1,12 +1,11 @@
 import {Layout} from 'antd';
-import './index.scss';
 import settings from '@/settings';
-import {memo} from "react";
+import './index.scss';
 
 const {Footer} = Layout;
 
-const CustomFooter = memo(({storeSetting}) => {
-    return storeSetting.showFooter ? <Footer>{settings.footer}</Footer> : <></>
-});
+const CustomFooter = ({storeSetting}) => {
+    return storeSetting.showFooter ? <Footer>{settings.footer}</Footer> : null
+}
 
 export default CustomFooter;
