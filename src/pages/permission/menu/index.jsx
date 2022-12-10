@@ -6,9 +6,9 @@ import Paginate from "@components/Paginate/index.jsx";
 import {getMenus} from "@api/permission/menu/index.js";
 import columnsData from "./columns.jsx";
 import {createColumns} from "@components/Table/Column/index.js";
+import {useNavigate, useLocation} from "react-router-dom";
 
 const Menu = () => {
-
     const [selectRows, setSelectRows] = useState(0);
     const [selectAll, setSelectAll] = useState(false);
 
@@ -73,8 +73,10 @@ const Menu = () => {
         getMenuList();
     }
 
+    const navigate = useNavigate();
+    const {pathname} = useLocation();
     const onCreate = () => {
-
+        navigate(`${pathname}/create`);
     }
 
     const onBatchDelete = () => {
