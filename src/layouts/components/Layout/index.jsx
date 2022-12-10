@@ -9,6 +9,7 @@ import {useSideBarRoutes} from "@/router/module/permission.jsx";
 import AntdDrawer from "../Drawer/index.jsx";
 import {useAppSelector} from "@/app/hooks.js";
 import {selectSetting} from "@/app/reducers/setting/settingReducer.js";
+import './index.scss';
 
 const CustomLayout = () => {
 
@@ -17,7 +18,7 @@ const CustomLayout = () => {
     const storeSetting = useAppSelector(selectSetting);
 
     return (
-        <Layout style={{height: '100vh'}}>
+        <Layout>
             <SideBar routes={routes} storeSetting={storeSetting}/>
             <Layout>
                 <CustomHeader storeSetting={storeSetting}/>
