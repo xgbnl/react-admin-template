@@ -1,8 +1,8 @@
+import {useEffect, useState} from "react";
 import {Layout, Space} from "antd";
 import CustomAvatar from "../Avatar";
 import Translation from "@/layouts/components/Translation/index.jsx";
 import './index.scss';
-import {useEffect, useState} from "react";
 
 const {Header} = Layout;
 

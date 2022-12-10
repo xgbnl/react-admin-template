@@ -4,14 +4,13 @@ import {ConfigProvider} from "antd";
 import {selectAppLang} from "@/app/reducers/app/AppReducer.js";
 import {useAppSelector} from "@/app/hooks.js";
 
-
-const Translation = (App) => {
+const Translation = ({children}) => {
 
     const lang = useAppSelector(selectAppLang);
 
     return (
         <ConfigProvider locale={lang === 'zh_cn' ? zhCN : enUS}>
-            <App/>
+            {children}
         </ConfigProvider>
     )
 }
