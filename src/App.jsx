@@ -1,14 +1,8 @@
-import zhCN from 'antd/locale/zh_CN';
-import enUS from 'antd/locale/en_US';
-import {ConfigProvider} from "antd";
-import {selectAppLang} from "@/app/reducers/app/AppReducer.js";
-import {useAppSelector} from "@/app/hooks.js";
-import {useAppRoutes} from "@/router/module/permission.jsx";
-import Middleware from "@components/middleware/Middleware.jsx";
+import Middleware from "@components/Middleware/middleware.jsx";
+import Translation from "@components/Translation/index.jsx";
 
 const App = () => {
-    const lang = useAppSelector(selectAppLang);
-    return <ConfigProvider locale={lang === 'zh_CN' ? zhCN : enUS}>{useAppRoutes()}</ConfigProvider>
+    return Translation();
 }
 
 export default Middleware(App);

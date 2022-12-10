@@ -1,5 +1,5 @@
 import {Suspense} from "react";
-import Loading from "@components/loading/index.jsx";
+import Loading from "@components/Loading/index.jsx";
 
 /**
  * 动态加载
