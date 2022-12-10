@@ -1,14 +1,14 @@
 import {Space} from "antd";
-import CreateButton from "./components/createButton/index.jsx";
-import ReloadButton from "./components/reloadButton/index.jsx";
-import DensityButton from "./components/densityButton/index.jsx";
-import SettingButton from "./components/settingButton/index.jsx";
-import BorderedButton from "./components/borderedButton/index.jsx";
+import CreateButton from "./components/CreateButton/index.jsx";
+import ReloadButton from "./components/ReloadButton/index.jsx";
+import DensityButton from "./components/DensityButton/index.jsx";
+import SettingButton from "./components/SettingButton/index.jsx";
+import BorderedButton from "./components/BorderedButton/index.jsx";
+import DeleteButton from "./components/DeleteButton/index.jsx";
 import Permission from "@components/Permission/index.jsx";
 import './index.scss'
 
 const TableToolBar = ({
-                          title = '编辑表格',
                           space = 15,
                           onRefresh,
                           setSize,
@@ -16,18 +16,28 @@ const TableToolBar = ({
                           setBordered,
                           columns,
                           setColumns,
+                          onCreate,
+                          onBatchDelete,
+                          createPermission,
+                          deletePermission,
+                          selectRows,
+                          selectAll,
                       }) => {
 
     return (
         <div className='ant-table-toolbar'>
             <div className='ant-table-toolbar-container'>
                 <div className='ant-table-toolbar-left'>
-                    <div className='ant-table-toolbar-left-item'>{title}</div>
+                    <div className='ant-table-toolbar-left-item'>
+                        <Permission permission={deletePermission}>
+                            <DeleteButton selectAll={selectAll} selectRows={selectRows} onBatchDelete={onBatchDelete}/>
+                        </Permission>
+                    </div>
                 </div>
                 <div className='ant-table-toolbar-right'>
                     <Space size={space}>
-                        <Permission permission='permission.menu.create'>
-                            <CreateButton/>
+                        <Permission permission={createPermission}>
+                            <CreateButton onClick={onCreate}/>
                         </Permission>
                         <ReloadButton onRefresh={onRefresh}/>
                         <DensityButton setSize={setSize}/>
@@ -36,7 +46,6 @@ const TableToolBar = ({
                     </Space>
                 </div>
             </div>
-
         </div>
     );
 }
