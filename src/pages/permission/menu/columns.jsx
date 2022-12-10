@@ -1,3 +1,7 @@
+import {Tag} from 'antd';
+import {createIcon} from "@utils/utils.js";
+import {DollarCircleTwoTone} from '@ant-design/icons';
+
 export default [
     {
         title: '菜单名称',
@@ -29,12 +33,16 @@ export default [
         dataIndex: 'visible',
         align: 'center',
         width: '12%',
+        render: (_, {visible}) => {
+            return <Tag color={visible === '可见' ? 'success' : 'default'}>{visible}</Tag>
+        }
     },
     {
         title: '图标',
         dataIndex: 'icon',
         align: 'center',
         width: '12%',
+        render: (_, {icon}) => <DollarCircleTwoTone/>,
     },
     {
         title: '操作',

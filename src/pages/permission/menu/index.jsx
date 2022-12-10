@@ -1,10 +1,10 @@
+import {useEffect, useState} from "react";
 import {Table} from 'antd';
 import TableToolBar from "@components/TableToolBar/index.jsx";
-import columnsData from "./columns";
-import menuMock from "@/mock/menuMock.js";
-import {useEffect, useState} from "react";
 import useAntDesign from "@/common/useAntDesign.js";
 import Paginate from "@components/paginate/index.jsx";
+import {getMenus} from "@api/permission/menu/index.js";
+import columnsData from "./columns.jsx";
 
 // rowSelection objects indicates the need for row selection
 const rowSelection = {
@@ -24,16 +24,30 @@ const Menu = () => {
     const [tableBorder, setTableBorder] = useState(false);
     const [columns, setColumns] = useState(columnsData);
     const [current, setCurrent] = useState(1);
-    const [total, setTotal] = useState(500);
+    const [total, setTotal] = useState(0);
     const [pageSize, setPageSize] = useState(10);
+    const [dataSource, setDataSource] = useState([]);
+
+    const getMenuList = () => {
+        getMenus().then(res => {
+            const {response} = res;
+            setDataSource(response.data.list);
+            setTotal(response.total);
+            setCurrent(response.pageNum);
+            setPageSize(response.pageSize);
+        })
+    }
 
     useEffect(() => {
         setColumns(columnsData);
-
-
+        getMenuList();
     }, [columnsData, current, pageSize])
 
     const {tablePaginate} = useAntDesign();
+
+    const onRefresh = () => {
+        getMenuList();
+    }
 
     return (
         <>
@@ -44,13 +58,14 @@ const Menu = () => {
                 bordered={tableBorder}
                 columns={columns}
                 setColumns={setColumns}
+                onRefresh={onRefresh}
             />
             <Table
                 columns={columns}
                 rowSelection={{
                     ...rowSelection,
                 }}
-                dataSource={menuMock}
+                dataSource={dataSource}
                 size={tableSize}
                 scroll={{x: 1300}}
                 bordered={tableBorder}

@@ -27,7 +27,7 @@ export const getUser = () => {
             'Menu',
         ],
         buttons: [
-            'role.user'
+            'permission.menu.create',
         ],
     };
     return new Promise(resolve => resolve({response: re}))

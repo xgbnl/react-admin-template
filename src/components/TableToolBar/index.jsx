@@ -4,6 +4,7 @@ import ReloadButton from "./components/reloadButton/index.jsx";
 import DensityButton from "./components/densityButton/index.jsx";
 import SettingButton from "./components/settingButton/index.jsx";
 import BorderedButton from "./components/borderedButton/index.jsx";
+import Permission from "@components/Permission/index.jsx";
 import './index.scss'
 
 const TableToolBar = ({
@@ -25,7 +26,9 @@ const TableToolBar = ({
                 </div>
                 <div className='ant-table-toolbar-right'>
                     <Space size={space}>
-                        <CreateButton/>
+                        <Permission permission='permission.menu.create'>
+                            <CreateButton/>
+                        </Permission>
                         <ReloadButton onRefresh={onRefresh}/>
                         <DensityButton setSize={setSize}/>
                         <BorderedButton bordered={bordered} setBordered={setBordered}/>
