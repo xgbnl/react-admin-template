@@ -3,7 +3,8 @@ import {load} from "@/router/module/effect.jsx";
 
 const Role = lazy(() => import('@pages/permission/role'));
 const Menu = lazy(() => import('@pages/permission/menu'));
-const CreateMenu = lazy(() => import('@pages/permission/menu/form.jsx'))
+const MenuForm = lazy(() => import('@pages/permission/menu/form'));
+const MenuDetail = lazy(() => import('@pages/permission/menu/detail'));
 
 const asyncRoutes = [
     {
@@ -28,10 +29,17 @@ const asyncRoutes = [
                         name: 'MenuCreate',
                         meta: {title: '新增菜单'},
                         hidden: true,
-                        element: load(CreateMenu),
+                        element: load(MenuForm),
+                    },
+                    {
+                        path: 'detail/:id',
+                        name: 'MenuDetail',
+                        meta: {title: '详情页'},
+                        hidden: true,
+                        element: load(MenuDetail),
                     }
                 ],
-            }
+            },
         ],
     }
 ];
