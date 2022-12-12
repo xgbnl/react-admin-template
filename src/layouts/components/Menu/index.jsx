@@ -7,21 +7,23 @@ import settings from "@/settings.js";
 
 const CustomMenu = ({theme, routes, storeSetting}) => {
     const [openKeys, setOpenKeys] = useState([]);
-    const [selectedKeys, setSelectdKeys] = useState([]);
+    const [selectKey, setSelectKey] = useState('');
 
-    const {pathJoin, createMaps} = useCommon();
-
-    const menuMaps = createMaps(routes);
+    const {pathJoin, filterPath} = useCommon();
 
     const location = useLocation();
     const navigate = useNavigate();
 
     const {pathname} = location;
     useEffect(() => {
-        const selectedKeys = pathname.split('/').slice(0).join('/')
-        setSelectdKeys([selectedKeys])
+        let selectedKeys = pathname.split('/').slice(0).join('/');
 
-        document.title = settings.title + '-' + menuMaps[selectedKeys]?.label;
+        const {label,path} = filterPath(routes, selectedKeys);
+
+        setSelectKey(path);
+
+        document.title = settings.title + '-' + label;
+
     }, [pathname]);
 
     const rootKeys = [];
@@ -85,7 +87,7 @@ const CustomMenu = ({theme, routes, storeSetting}) => {
                     onClick={handleMenuClick}
                     onOpenChange={handleOpenChange}
                     openKeys={openKeys}
-                    selectedKeys={selectedKeys}
+                    selectedKeys={selectKey}
                     mode="inline"
                     inlineIndent={48}
             />
@@ -95,7 +97,7 @@ const CustomMenu = ({theme, routes, storeSetting}) => {
                       onClick={handleMenuClick}
                       onOpenChange={handleOpenChange}
                       openKeys={openKeys}
-                      selectedKeys={selectedKeys}
+                      selectedKeys={selectKey}
                       mode="inline"
                       inlineIndent={48}
                 />

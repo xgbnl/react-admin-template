@@ -1,6 +1,14 @@
+import {getNotFound} from "@/router/index.jsx";
+
 const useCommon = () => {
 
-    const suffix = (needle) => needle.indexOf('/') !== 0 ? `/${needle}` : needle;
+    /**
+     * 添加前辍
+     * @param needle
+     * @param suffix
+     * @returns {string|*}
+     */
+    const suffix = (needle, suffix = '/') => needle.indexOf(suffix) !== 0 ? `${suffix}${needle}` : needle;
     /**
      * 路径拼接
      * 方便左侧菜单与面包屑导航使用
@@ -31,14 +39,18 @@ const useCommon = () => {
         const maps = {};
         const find = (routes, parentPath = null) => {
             for (const route of routes) {
-                if (!route.hidden) {
-                    maps[pathJoin(route.path, parentPath)] = {
-                        label: route.meta?.title,
-                    };
+                // 去除参数路由后面的参数,保证面包屑和菜单组件在调用时能正常通过pathname获取存储的子项 path/:id
+                if (route.path.indexOf('/') !== -1) {
+                    route.path = route.path.substring(0, route.path.indexOf('/'));
                 }
+
+                const key = pathJoin(route.path, parentPath);
+
+                maps[key] = {label: route.meta?.title, path: key};
+
                 if (route.children && route.children.length) {
-                    maps[pathJoin(route.path, parentPath)].isParent = true;
-                    find(route.children, pathJoin(route.path, parentPath));
+                    maps[key].isParent = true;
+                    find(route.children, key);
                 }
             }
         }
@@ -46,9 +58,39 @@ const useCommon = () => {
         return maps;
     }
 
+    /**
+     * 过滤当前路径，并返回当前路由对应的title和当前路由
+     * 返回一个map对象
+     * @param routes 传入的路由表
+     * @param path 当前路由
+     * @returns {*}
+     */
+    const filterPath = (routes, path) => {
+        const menuMaps = createMaps(routes);
+
+        if (empty(menuMaps[path])) {
+            const splits = path.split('/');
+            path = Number(splits.at(-1)) ? splits.slice(0, -1).join('/') : getNotFound().path;
+        }
+
+        return menuMaps[path];
+    }
+
+    /**
+     * 检查给定数据是否为空
+     * @param needle
+     * @returns {boolean}
+     */
+    const empty = (needle) => {
+        const values = ['', "", null, undefined, 0, -1];
+        return values.includes(needle);
+    }
+
     return {
         pathJoin,
-        createMaps
+        filterPath,
+        empty,
+        suffix,
     };
 }
 
