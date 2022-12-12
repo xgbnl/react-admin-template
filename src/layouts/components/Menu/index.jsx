@@ -1,19 +1,9 @@
 import {ConfigProvider, Menu} from "antd";
-import { useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {makeIcon} from "@utils/utils.js";
 import useCommon from "@/common/useCommon.js";
 import settings from "@/settings.js";
-
-const getItem = (key, label, icon, children = null, type = '') => {
-    return {
-        key,
-        label,
-        children,
-        icon,
-        type,
-    };
-}
 
 const CustomMenu = ({theme, routes, storeSetting}) => {
     const [openKeys, setOpenKeys] = useState([]);
@@ -34,25 +24,29 @@ const CustomMenu = ({theme, routes, storeSetting}) => {
         document.title = settings.title + '-' + menuMaps[selectedKeys]?.label;
     }, [pathname]);
 
-    // 存储有子项的父级key
     const rootKeys = [];
-    let children = null;
-    const menuItems = routes.map(route => {
-        if (route.hidden) {
-            return null;
-        }
+    const tree = (routes, parentPath = null) => (
+        routes.map(({path, meta, children, ...route}) => {
+            if (route.hidden) {
+                return null;
+            }
 
-        if (route.children && route.children.length) {
-            rootKeys.push(pathJoin(route.path));
-            children = route.children.map((item) => {
-                return (!item.hidden)
-                    ? getItem(pathJoin(item.path, pathJoin(route.path)), item.meta?.title, makeIcon(item.meta?.icon))
-                    : null;
-            }).filter(Boolean)
-        }
+            if (children?.length) {
+                rootKeys.push(pathJoin(path));
+                children = tree(children, pathJoin(path, pathJoin(parentPath))).filter(Boolean);
+            }
 
-        return getItem(pathJoin(route.path), route.meta?.title, makeIcon(route.meta?.icon), children);
-    }).filter(Boolean);
+            return {
+                key: pathJoin(path, pathJoin(parentPath)),
+                label: meta?.title,
+                icon: makeIcon(meta?.icon),
+                children: !children.length ? null : children,
+                type: '',
+            }
+        })
+    ).filter(Boolean)
+
+    const menus = tree(routes);
 
     const handleMenuClick = ({key}) => {
         navigate(key);
@@ -86,7 +80,7 @@ const CustomMenu = ({theme, routes, storeSetting}) => {
 
     return (
         storeSetting.sideBarStyle === 'circle'
-            ? <Menu items={menuItems}
+            ? <Menu items={menus}
                     theme={theme}
                     onClick={handleMenuClick}
                     onOpenChange={handleOpenChange}
@@ -96,7 +90,7 @@ const CustomMenu = ({theme, routes, storeSetting}) => {
                     inlineIndent={48}
             />
             : <ConfigProvider theme={menuTheme}>
-                <Menu items={menuItems}
+                <Menu items={menus}
                       theme={theme}
                       onClick={handleMenuClick}
                       onOpenChange={handleOpenChange}
