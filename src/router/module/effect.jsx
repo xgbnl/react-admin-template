@@ -17,20 +17,21 @@ export const load = (Component) => {
 /**
  * 递归处理路由
  */
-const treeRouteFilter = ({routeHash, asyncRoutes, lv = 0}) => {
-    return asyncRoutes.filter(router => {
+const treeRouteFilter = ({routeHash, routes, lv = 0}) => {
+    return routes.filter(router => {
         const {children = []} = router;
         router.children = treeRouteFilter({
             routeHash,
-            asyncRoutes: children,
+            routes: children,
             lv: lv + 1
         });
+
         return (lv === 0) || routeHash[router.name];
     });
 }
 
 // hash路由
-export const filterRouter = ({asyncRoutes, allowList}) => {
+export const filterRouter = ({routes, allowList}) => {
     const createRouteHash = () => {
         const hash = {};
 
@@ -43,5 +44,5 @@ export const filterRouter = ({asyncRoutes, allowList}) => {
 
     const routeHash = createRouteHash();
 
-    return treeRouteFilter({routeHash, asyncRoutes});
+    return treeRouteFilter({routeHash, routes});
 }

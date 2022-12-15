@@ -67,10 +67,10 @@ const useCommon = () => {
      */
     const filterPath = (routes, path) => {
         const menuMaps = createMaps(routes);
-
         if (empty(menuMaps[path])) {
             const splits = path.split('/');
             path = Number(splits.at(-1)) ? splits.slice(0, -1).join('/') : getNotFound().path;
+            console.log(path)
         }
 
         return menuMaps[path];

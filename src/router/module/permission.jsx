@@ -27,11 +27,9 @@ const allRoutes = cloneDeep(assignRoute(constantRoutes, asyncRoutes));
  */
 const allSyncRoutes = () => {
     const {routes} = useAppSelector(selectUser);
-    const permissionRoutes = [...routes, ...allowList];
-
-    return permissionRoutes.length ? filterRouter({
-        asyncRoutes: allRoutes,
-        allowList: permissionRoutes,
+    return routes?.length ? filterRouter({
+        routes: allRoutes,
+        allowList: [...routes, ...allowList],
     }) : constantRoutes;
 }
 
@@ -44,10 +42,8 @@ export const useAppRoutes = () => {
  * @returns {*}
  */
 export const useSideBarRoutes = () => {
-
     const allRoutes = allSyncRoutes();
     const rootIndex = findRouteIndex(allRoutes);
-
     return allRoutes[rootIndex].children.filter(Boolean);
 }
 
