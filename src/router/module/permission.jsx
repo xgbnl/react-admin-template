@@ -27,11 +27,11 @@ const allRoutes = cloneDeep(assignRoute(constantRoutes, asyncRoutes));
  */
 const allSyncRoutes = () => {
     const {routes} = useAppSelector(selectUser);
-    const permissionRoutes = [...routes];
+    const permissionRoutes = [...routes, ...allowList];
 
     return permissionRoutes.length ? filterRouter({
         asyncRoutes: allRoutes,
-        allowList: [...permissionRoutes, ...allowList],
+        allowList: permissionRoutes,
     }) : constantRoutes;
 }
 
@@ -59,8 +59,8 @@ export const useSideBarRoutes = () => {
  * @returns {*}
  */
 function assignRoute(constantRoutes, asyncRoutes) {
-    const parentIndex = findRouteIndex(constantRoutes);
-    const {children} = constantRoutes[parentIndex];
+    const rootIndex = findRouteIndex(constantRoutes);
+    const {children} = constantRoutes[rootIndex];
 
     const index = findRouteIndex(children, 'dashboard')
     children.splice(index + 1, 0, ...asyncRoutes);
