@@ -40,8 +40,8 @@ const useCommon = () => {
         const find = (routes, parentPath = null) => {
             for (const route of routes) {
                 // 去除参数路由后面的参数,保证面包屑和菜单组件在调用时能正常通过pathname获取存储的子项 path/:id
-                if (route.path.indexOf('/') !== -1) {
-                    route.path = route.path.substring(0, route.path.indexOf('/'));
+                if (route.path.indexOf(':') !== -1) {
+                    route.path = route.path.substring(0,route.path.lastIndexOf('/'));
                 }
 
                 const key = pathJoin(route.path, parentPath);
@@ -49,7 +49,6 @@ const useCommon = () => {
                 maps[key] = {label: route.meta?.title, path: key};
 
                 if (route.children && route.children.length) {
-                    maps[key].isParent = true;
                     find(route.children, key);
                 }
             }
@@ -67,6 +66,7 @@ const useCommon = () => {
      */
     const filterPath = (routes, path) => {
         const menuMaps = createMaps(routes);
+
         if (empty(menuMaps[path])) {
             const splits = path.split('/');
             path = Number(splits.at(-1)) ? splits.slice(0, -1).join('/') : getNotFound().path;

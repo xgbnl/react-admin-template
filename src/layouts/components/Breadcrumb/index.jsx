@@ -20,8 +20,8 @@ const CustomBreadcrumb = ({routes}) => {
         const breadcrumb = filterPath(routes, url);
 
         return (<BreadcrumbItem key={url}>
-                {breadcrumb.isParent ? <span>{breadcrumb.label}</span> : <Link to={url}>{breadcrumb.label}</Link>}
-            </BreadcrumbItem>);
+            <span>{breadcrumb?.label}</span>
+        </BreadcrumbItem>);
     })
 
     const breadcrumbItems = [<BreadcrumbItem key='home'>
