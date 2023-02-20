@@ -63,7 +63,7 @@ service.interceptors.response.use(
         if (isNeedUpdateToken) {
             setToken(updateToken)
         }
-        const successCode = '0,200,204,302'
+        const successCode = '200,201,204,302'
         if (successCode.includes(code)) {
             return res.data
         } else {
