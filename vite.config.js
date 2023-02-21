@@ -38,6 +38,17 @@ export default defineConfig(({command, mode}) => {
                 '@api': path.resolve(__dirname, 'src/api'),
                 '@components': path.resolve(__dirname, 'src/components'),
             }
-        }
+        },
+        base: './',
+        build: {
+            assetsDir: 'static/assets',
+            assetsInlineLimit: 10000,
+            chunkSizeWarningLimit: 10000,
+            rollupOptions: {
+                chunkFileNames: 'static/js/[name]-[hash].js',
+                entryFileNames: 'static/js/[name]-[hash].js',
+                assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
+            }
+        },
     }
 })
