@@ -36,5 +36,6 @@ export default {
 
         // 展示Logo
         showLogo: true,
-    }
+    },
+    basePath: './',
 };

@@ -1,9 +1,11 @@
 import axios from 'axios'
+import {render} from "react-dom";
 import {setToken, authorization} from './auth';
 import useAntDesign from "@/common/useAntDesign.js";
+import Loading from "@components/Loading/index.jsx";
 
 let reqConfig
-let loadingE
+let count = 0;
 
 /**
  *
@@ -14,8 +16,7 @@ const service = axios.create()
 const {antdMessage} = useAntDesign();
 
 // 请求拦截
-service.interceptors.request.use(
-    (request) => {
+service.interceptors.request.use(request => {
         // token setting
         request.headers['Authorization'] = authorization();
         /* download file*/
@@ -28,12 +29,7 @@ service.interceptors.request.use(
         }
         reqConfig = request
         if (request.bfLoading) {
-            loadingE = ElLoading.service({
-                lock: true,
-                text: '数据载入中',
-                // spinner: 'el-icon-ElLoading',
-                background: 'rgba(0, 0, 0, 0.1)'
-            })
+            loadSpin();
         }
         /*
          *params会拼接到url上
@@ -45,14 +41,33 @@ service.interceptors.request.use(
         return request
     },
     (err) => {
-        Promise.reject(err)
+        Promise.reject(err).then(r => console.log(r))
     }
 )
-// 响应拦截
+
+const loadSpin = () => {
+    if (count === 0) {
+        const ele = document.createElement('div');
+        ele.setAttribute('id','loading');
+        document.body.appendChild(ele);
+        render(<Loading/>,ele);
+    }
+
+    count ++;
+}
+
+const hideLoading = () => {
+    count --;
+    if (count === 0) {
+        document.body.removeChild(document.getElementById('loading'));
+    }
+}
+
+// Response interceptor
 service.interceptors.response.use(
     (res) => {
-        if (reqConfig.afHLoading && loadingE) {
-            loadingE.close()
+        if (reqConfig.afHLoading) {
+            hideLoading();
         }
         // 如果是下载文件直接返回
         if (reqConfig.isDownLoadFile) {
@@ -90,7 +105,7 @@ service.interceptors.response.use(
     },
     (err) => {
         /*http错误处理，处理跨域，not-found，401，500*/
-        if (loadingE) loadingE.close()
+        // if (loadingE) loadingE.close()
         antdMessage(err);
         //如果是跨域
         const errObj = {

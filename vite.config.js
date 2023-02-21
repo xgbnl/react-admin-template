@@ -2,6 +2,7 @@ import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path';
 import {loadEnv} from 'vite';
+import settings from "@/settings.js";
 
 // https://vitejs.dev/config/
 export default defineConfig(({command, mode}) => {
@@ -39,11 +40,11 @@ export default defineConfig(({command, mode}) => {
                 '@components': path.resolve(__dirname, 'src/components'),
             }
         },
-        base: './',
+        base: settings.basePath,
         build: {
             assetsDir: 'static/assets',
             assetsInlineLimit: 10000,
-            chunkSizeWarningLimit: 10000,
+            chunkSizeWarningLimit: 1500,
             rollupOptions: {
                 chunkFileNames: 'static/js/[name]-[hash].js',
                 entryFileNames: 'static/js/[name]-[hash].js',
