@@ -1,7 +1,6 @@
-## React-Admin
-> 轻量脚手架
+## React-admin-template
 
-#### 环境要求
+#### env
 ```
 node  ^18.12.1 
 npm   ^9.1
