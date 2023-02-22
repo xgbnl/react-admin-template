@@ -2,7 +2,6 @@ import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path';
 import {loadEnv} from 'vite';
-import settings from "@/settings.js";
 
 // https://vitejs.dev/config/
 export default defineConfig(({command, mode}) => {
@@ -40,7 +39,7 @@ export default defineConfig(({command, mode}) => {
                 '@components': path.resolve(__dirname, 'src/components'),
             }
         },
-        base: settings.basePath,
+        base: './',
         build: {
             assetsDir: 'static/assets',
             assetsInlineLimit: 10000,
