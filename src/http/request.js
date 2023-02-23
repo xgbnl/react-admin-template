@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {render} from "react-dom";
-import {setToken, authorization} from './auth';
+import {setToken, authorization} from '@utils/auth.js';
 import useAntDesign from "@/common/useAntDesign.js";
 import Loading from "@components/Loading/index.jsx";
 
@@ -48,16 +48,16 @@ service.interceptors.request.use(request => {
 const loadSpin = () => {
     if (count === 0) {
         const ele = document.createElement('div');
-        ele.setAttribute('id','loading');
+        ele.setAttribute('id', 'loading');
         document.body.appendChild(ele);
-        render(<Loading/>,ele);
+        render(<Loading/>, ele);
     }
 
-    count ++;
+    count++;
 }
 
 const hideLoading = () => {
-    count --;
+    count--;
     if (count === 0) {
         document.body.removeChild(document.getElementById('loading'));
     }
@@ -73,27 +73,13 @@ service.interceptors.response.use(
         if (reqConfig.isDownLoadFile) {
             return res
         }
-        const {flag, msg, isNeedUpdateToken, updateToken, code} = res.data
+        const {msg, code} = res.data
         //更新token保持登录状态
-        if (isNeedUpdateToken) {
-            setToken(updateToken)
-        }
-        const successCode = '200,201,204,302'
-        if (successCode.includes(code)) {
+        if ([200, 201, 204, 302].includes(code)) {
             return res.data
-        } else {
-            // if (code === 403) {
-            //   ElMessageBox.confirm('请重新登录', {
-            //     confirmButtonText: '重新登录',
-            //     cancelButtonText: '取消',
-            //     type: 'warning'
-            //   }).then(() => {
-            //     const userStore = useUserStore()
-            //     userStore.resetState().then(() => {
-            //       router.push({path: '/login'})
-            //     })
-            //   })
-            // }
+        }
+
+        if ([401, 422, 403, 500].includes(code)) {
             if (reqConfig.isAlertErrorMsg) {
                 antdMessage(msg);
             }

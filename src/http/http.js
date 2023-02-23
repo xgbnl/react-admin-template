@@ -1,6 +1,6 @@
-import axiosReq from "@utils/request.js";
+import axiosReq from "@/http/request.js";
 
-class RESTFul {
+class Http {
 
     get = (url, data = {}) => {
         return axiosReq({
@@ -59,5 +59,5 @@ class RESTFul {
     }
 }
 
-const RESETFul = new RESTFul();
+const RESETFul = new Http();
 export default RESETFul;
