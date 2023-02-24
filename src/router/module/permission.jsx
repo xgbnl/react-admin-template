@@ -61,7 +61,7 @@ export const useSideBarRoutes = () => {
  * @param path
  * @returns {*}
  */
-function findRouteIndex(routes, path = '/') {
-    return routes.findIndex(route => route.path === path);
+function findRouteIndex(routes, path = null) {
+    return routes.findIndex(route => route.path === (path ?? '/'));
 }
 
