@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {render} from "react-dom";
-import {setToken, authorization} from '@utils/auth.js';
+import {getToken, hasToken} from '@utils/auth.js';
 import useAntDesign from "@/common/useAntDesign.js";
 import Loading from "@components/Loading/index.jsx";
 
@@ -18,7 +18,10 @@ const {antdMessage} = useAntDesign();
 // 请求拦截
 service.interceptors.request.use(request => {
         // token setting
-        request.headers['Authorization'] = authorization();
+        if(hasToken()) {
+            request.headers['Authorization'] = 'Bearer '+getToken();
+        }
+        
         /* download file*/
         if (request.isDownLoadFile) {
             request.responseType = 'blob'
