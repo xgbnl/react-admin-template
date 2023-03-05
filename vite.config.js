@@ -1,10 +1,13 @@
 import {defineConfig} from 'vite'
-import react from '@vitejs/plugin-react'
-import {resolve} from 'path';
-import {loadEnv} from 'vite';
+import react          from '@vitejs/plugin-react'
+import {resolve}      from 'path';
+import {loadEnv}      from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(({command, mode}) => {
+
+    const env = loadEnv(mode, process.cwd());
+
     return {
         clearScreen: false,
         server: {
@@ -17,7 +20,7 @@ export default defineConfig(({command, mode}) => {
             //proxy look for https://vitejs.cn/config/#server-proxy
             proxy: {
                 '/api': {
-                    target: loadEnv(mode, process.cwd()).VITE_APP_PROXY_URL,
+                    target: env.VITE_APP_PROXY_URL,
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, '/api/')
                 }
@@ -39,7 +42,7 @@ export default defineConfig(({command, mode}) => {
                 '@components': resolve(__dirname, 'src/components'),
             }
         },
-        base: './',
+        base: env.VITE_APP_BASE_LOCATION,
         build: {
             assetsDir: 'static/assets',
             assetsInlineLimit: 10000,
